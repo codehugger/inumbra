@@ -48,9 +48,7 @@ public class PlayerMovement : MonoBehaviour
             // Quaternion input_rot = Quaternion.AngleAxis(input_angle, Vector3.forward);
 
             Quaternion body_rot = _body.transform.rotation;
-            _legs.transform.rotation = Quaternion.Lerp(_legs.transform.rotation,
-                                                        body_rot,
-                                                        legTurnSpeed * Time.deltaTime);
+            _legs.transform.rotation = Quaternion.Lerp(legs_rot, body_rot, legTurnSpeed * Time.deltaTime);
         }
     }
 }
