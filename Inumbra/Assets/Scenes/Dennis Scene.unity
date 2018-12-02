@@ -1805,6 +1805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df146a50e0d7c46d9b49296da53ce251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dead_angle: 45
   leg_turn_speed: 5
 --- !u!1 &1468099589
 GameObject:
