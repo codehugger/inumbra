@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PlayerOrientation : MonoBehaviour
 {
+
+    public float leg_turn_speed = 5;
+
     // Use this for initialization
     void Start()
     {
@@ -14,6 +17,15 @@ public class PlayerOrientation : MonoBehaviour
     {
         Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        Quaternion new_rot = Quaternion.AngleAxis(angle, Vector3.forward);
+        GameObject legs = GameObject.FindGameObjectWithTag("Legs");
+        Quaternion legs_rot = legs.transform.rotation;
+        float angle_diff = Quaternion.Angle(legs_rot, new_rot);
+        if (angle_diff > 45)
+        {
+            legs.transform.rotation = Quaternion.Slerp(legs_rot, new_rot, leg_turn_speed * Time.deltaTime);
+
+        }
+        transform.rotation = new_rot;
     }
 }

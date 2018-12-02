@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public float speed = 1;
+    public float leg_turn_speed = 5;
 
     // Use this for initialization
     void Start()
@@ -26,7 +27,10 @@ public class PlayerMovement : MonoBehaviour
         if (System.Math.Abs(in_y) > 0.3 || System.Math.Abs(in_x) > 0.3)
         {
             float angle = Mathf.Atan2(move_direction.y, move_direction.x) * Mathf.Rad2Deg;
-            GameObject.FindGameObjectWithTag("Legs").transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Quaternion new_rot = Quaternion.AngleAxis(angle, Vector3.forward);
+            Quaternion body_rot = GameObject.FindGameObjectWithTag("Body").transform.rotation;
+            GameObject legs = GameObject.FindGameObjectWithTag("Legs");
+            legs.transform.rotation = Quaternion.Slerp(legs.transform.rotation, body_rot, leg_turn_speed * Time.deltaTime);
         }
     }
 }
