@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 440452844}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,7 +247,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
-  leg_turn_speed: 5
+  legTurnSpeed: 5
+  deadAngle: 45
 --- !u!4 &440452845
 Transform:
   m_ObjectHideFlags: 0
@@ -1771,7 +1772,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1455159362}
-  - component: {fileID: 1455159363}
   m_Layer: 0
   m_Name: Upper
   m_TagString: Body
@@ -1794,19 +1794,6 @@ Transform:
   m_Father: {fileID: 440452845}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1455159363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1455159361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df146a50e0d7c46d9b49296da53ce251, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dead_angle: 45
-  leg_turn_speed: 5
 --- !u!1 &1468099589
 GameObject:
   m_ObjectHideFlags: 0
