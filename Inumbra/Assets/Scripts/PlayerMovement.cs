@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = new_pos;
         if (System.Math.Abs(in_y) > 0 || System.Math.Abs(in_x) > 0)
         {
-            Quaternion body_rot = GameObject.FindGameObjectWithTag("Body").transform.rotation;
+            Quaternion body_rot = _body.transform.rotation;
             _legs.transform.rotation = Quaternion.Lerp(_legs.transform.rotation,
                                                         body_rot,
                                                         legTurnSpeed * Time.deltaTime);
