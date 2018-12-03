@@ -19,19 +19,24 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Quaternion rotation;
+        Vector2 moveInput;
+
         // Move with keyboard WASD
-        Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         moveVelocity = moveInput.normalized * speed;
 
-        // Rotate to face mouse
+        // Rotate to face mouse (delay)
         //Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        //Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 10f * Time.deltaTime);
+        //rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
+        // Rotate to face mouse (no delay)
         var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        transform.rotation = rotation;
     }
 
     void FixedUpdate()
