@@ -5,18 +5,13 @@ public class HoldCharacter : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        collision.transform.parent = gameObject.transform;
+        collision.collider.transform.SetParent(transform);
         Debug.Log("We have collision enter");
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        collision.transform.parent = gameObject.transform;
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        collision.transform.parent = null;
+        collision.collider.transform.SetParent(null);
         Debug.Log("We have collision exit");
     }
 }
