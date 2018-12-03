@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Legs
   - Body
+  - Floor
   layers:
   - Default
   - TransparentFX
