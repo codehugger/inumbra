@@ -36,19 +36,11 @@ public class PlayerMovement : MonoBehaviour
         Quaternion legs_rot = _legs.transform.rotation;
         float angle_diff = Quaternion.Angle(legs_rot, new_rot);
 
-        if (angle_diff > deadAngle)
+        if (angle_diff > deadAngle || System.Math.Abs(in_y) > 0 || System.Math.Abs(in_x) > 0)
         {
             _legs.transform.rotation = Quaternion.Lerp(legs_rot, new_rot, legTurnSpeed * Time.deltaTime);
         }
-        else if (System.Math.Abs(in_y) > 0 || System.Math.Abs(in_x) > 0)
-        {
-            // TODO: try to rotate legs towards input axis and not body
-            //
-            // float input_angle = Mathf.Atan2(in_y, in_x)* Mathf.Rad2Deg;
-            // Quaternion input_rot = Quaternion.AngleAxis(input_angle, Vector3.forward);
-
-            Quaternion body_rot = _body.transform.rotation;
-            _legs.transform.rotation = Quaternion.Lerp(legs_rot, body_rot, legTurnSpeed * Time.deltaTime);
-        }
+        // TODO: try to rotate legs towards input axis and not body
+        //
     }
 }
