@@ -33,6 +33,14 @@ public class EnemyMovement : MonoBehaviour {
 		}
 		else if (time > directionChangeInterval)
 		{
+			if (Random.Range(0f, 1f) > 0.7f)
+			{
+				movementSpeed = 0;
+			}
+			else
+			{
+				movementSpeed += 1;
+			}
 			target = GetRandomRotation();
 			time = 0;
 		}
