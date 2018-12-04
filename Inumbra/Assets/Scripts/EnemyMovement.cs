@@ -6,18 +6,21 @@ public class EnemyMovement : MonoBehaviour {
 
 	public float rotationSpeed = 10;
 	public float movementSpeed = 1;
-	public float directionChangeInterval = 0.5f;
+	public float timeToKill = 2;
 	public float playerDistance = 3;
 
 	Quaternion target;
 	float time = 0;
 	float last_time = 0;
 	GameObject player;
+	float directionChangeInterval;
+	float exposureTime;
 
 	// Use this for initialization
 	void Start () {
 		target = GetRandomRotation();
 		player = GameObject.FindGameObjectWithTag("Player");
+		directionChangeInterval = Random.value * 3;
 	}
 	
 	// Update is called once per frame
@@ -43,6 +46,7 @@ public class EnemyMovement : MonoBehaviour {
 			}
 			target = GetRandomRotation();
 			time = 0;
+			directionChangeInterval = Random.value * 3;
 		}
 
 		transform.rotation = Quaternion.Lerp(transform.rotation, target, rotationSpeed * Time.deltaTime);
@@ -64,7 +68,27 @@ public class EnemyMovement : MonoBehaviour {
 		if (other.gameObject.tag == "Player")
 		{
 			Destroy(gameObject);
+		}	
+		else if (other.gameObject.tag == "Lantern")
+		{
+			exposureTime = 0;
+		}	
+	}
+
+	void OnTriggerStay2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "Lantern")
+		{
+			Debug.Log(exposureTime);
+			exposureTime += Time.fixedDeltaTime;
+			if (exposureTime >= timeToKill)
+			{
+				Destroy(gameObject);
+			}
+			else
+			{
+				transform.localScale += new Vector3(0.01f, 0.01f, 0);
+			}
 		}
-		
 	}
 }
