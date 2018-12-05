@@ -13,7 +13,10 @@ public class HoldCharacter : MonoBehaviour
         other.gameObject.transform.SetParent(transform);
 
         //hide roof
-        roof.GetComponent<Renderer>().enabled = false;
+        roof.SetActive(false);
+       // roof.GetComponent<Renderer>().enabled = false;
+        
+       // roof.GetComponent<LightObstacleGenerator>().enabled = false;
         }
         
     }
@@ -25,8 +28,7 @@ public class HoldCharacter : MonoBehaviour
         other.gameObject.transform.SetParent(null);
 
         //show roof
-        roof.GetComponent<Renderer>().enabled = true;
-        
+        roof.SetActive(true);
         }
     }
 }
