@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 1;
     public float legTurnSpeed = 5;
     public float deadAngle = 45;
+    public Animator animator;
+    
 
     private GameObject _body;
     private GameObject _legs;
@@ -26,6 +28,11 @@ public class PlayerMovement : MonoBehaviour
         float pos_x = transform.position.x + (in_x * speed * Time.deltaTime);
         float pos_y = transform.position.y + (in_y * speed * Time.deltaTime);
         Vector3 new_pos = new Vector3(pos_x, pos_y, 0f);
+
+        //Calculate length of movement for animation state change
+        float length = Vector3.Magnitude(new_pos - transform.position);
+        animator.SetFloat("Speed", length);
+        
         transform.position = new_pos;
 
         Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
