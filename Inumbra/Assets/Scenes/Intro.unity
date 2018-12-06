@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512703a275aa745678b32bd6c7971e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Main
+  sceneName: Alpha
   firstText: {fileID: 2114513183}
   secondText: {fileID: 1023297170}
   transitionDuration: 0

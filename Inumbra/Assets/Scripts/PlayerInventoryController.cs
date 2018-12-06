@@ -5,25 +5,31 @@ using UnityEngine;
 public class PlayerInventoryController : MonoBehaviour {
 
 	public float fuelAmount = 0;
+
+	public AudioClip coalPickupSound;
+	private AudioSource audioSource;
+
 	// Use this for initialization
 	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		audioSource = GetComponent<AudioSource>();
 	}
 
-	private void OnTriggerEnter2D(Collider2D other)
+	// Update is called once per frame
+	void Update () {
+	}
+
+	public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "coal")
         {
-		fuelAmount += 25;
-		Destroy(other.gameObject);
-
+			fuelAmount += 25;
+			StartCoroutine(CoalPickup(other));
         }
-        
     }
-	
+
+	IEnumerator CoalPickup(Collider2D other) {
+		Destroy(other.gameObject);
+		audioSource.PlayOneShot(coalPickupSound);
+		yield return new WaitForSeconds(coalPickupSound.length);
+	}
 }

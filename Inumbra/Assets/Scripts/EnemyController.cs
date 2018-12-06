@@ -28,6 +28,7 @@ public class EnemyController : MonoBehaviour {
 	EnemyState internalState;
 	bool inLantern;
 	bool stateChanged;
+	bool dying;
 
 	float alpha = 1;
 
@@ -37,6 +38,7 @@ public class EnemyController : MonoBehaviour {
 	public AudioClip attackSound;
 	public AudioClip retreatSound;
 	public AudioClip damageSound;
+	public AudioClip deathSound;
 
 	// Use this for initialization
 	void Start () {
@@ -45,6 +47,7 @@ public class EnemyController : MonoBehaviour {
 		directionChangeInterval = Random.value * 3;
 		internalState = 0;
 		audioSource = GetComponent<AudioSource>();
+		dying = false;
 
 		// Play all sounds as coroutines
 		StartCoroutine(PlayMovementSound());
@@ -162,7 +165,7 @@ public class EnemyController : MonoBehaviour {
 			alpha -= Time.deltaTime / dieCondition * fadeSpeed;
 			if (alpha < dieCondition)
 			{
-				Destroy(gameObject);
+				dying = true;
 				Debug.Log("DEAD");
 			}
 			else
@@ -193,7 +196,7 @@ public class EnemyController : MonoBehaviour {
 					if (rand == 1) {
 						audioSource.PlayOneShot(attackSound);
 						yield return new WaitForSeconds(attackSound.length);
-					} else {
+					} else if (rand == 2) {
 						audioSource.PlayOneShot(moveSound);
 						yield return new WaitForSeconds(moveSound.length);
 					}
@@ -206,7 +209,7 @@ public class EnemyController : MonoBehaviour {
 				}
 				break;
 				case EnemyState.retreat:
-				if (retreatSound != null) {
+				if (retreatSound != null && stateChanged) {
 					audioSource.PlayOneShot(retreatSound);
 					yield return new WaitForSeconds(retreatSound.length);
 				}
@@ -218,7 +221,12 @@ public class EnemyController : MonoBehaviour {
 
 	IEnumerator PlayDamageSound() {
 		while (true) {
-			if (damageSound && inLantern) {
+			if (dying) {
+				audioSource.PlayOneShot(deathSound);
+				yield return new WaitForSeconds(deathSound.length);
+				Destroy(gameObject);
+			}
+			else if (damageSound && inLantern) {
 				audioSource.PlayOneShot(damageSound);
 				yield return new WaitForSeconds(damageSound.length);
 			}
