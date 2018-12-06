@@ -10,6 +10,8 @@ TagManager:
   - Lantern
   - FadeScreen
   - coal
+  - PixelCanvas
+  - Shade
   layers:
   - Default
   - TransparentFX
