@@ -9,7 +9,7 @@ public class TrainMovement : MonoBehaviour {
     Vector2 position;
     
     // FOR ALPHA
-    public bool enoughFuel = false;
+    public GameObject startTrain;
 
 
 	// Use this for initialization
@@ -19,6 +19,9 @@ public class TrainMovement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        if(PlayerPrefs.GetInt("Fuel") > 0){
+            startTrain.SetActive(true);
+        }
         float step = speed * Time.deltaTime;
         transform.position = Vector2.MoveTowards(transform.position, target, step);	
     }
@@ -39,7 +42,6 @@ public class TrainMovement : MonoBehaviour {
             if(other.GetComponent<PlayerInventoryController>().fuelAmount > 0){
                 if(Input.GetKeyDown(KeyCode.E))
                 { 
-                enoughFuel = true;
                 speed = 1f;
                 }
             }
