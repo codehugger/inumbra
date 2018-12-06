@@ -26,23 +26,20 @@ public class DisplayTalkingText : MonoBehaviour {
 		if (talkingText != PlayerPrefs.GetString("Talk")) {
 			textChanged = true;
 			talkingText = PlayerPrefs.GetString("Talk");
-			Debug.Log("Text Changed");
-			Debug.Log(talkingText);
 		}
 
 		if (textUI != null && textChanged && !displayingText) {
 			StartCoroutine(DisplayText());
-		} else {
-			Debug.Log(PlayerPrefs.GetString("Talk"));
 		}
 	}
 
 	IEnumerator DisplayText() {
+		yield return new WaitForSeconds(1);
 		textUI.SetText(talkingText);
 		displayingText = true;
 		background.SetActive(true);
 		text.SetActive(true);
-		yield return new WaitForSeconds(4);
+		yield return new WaitForSeconds(2);
 		background.SetActive(false);
 		text.SetActive(false);
 		displayingText = false;
