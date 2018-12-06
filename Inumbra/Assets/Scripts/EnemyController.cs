@@ -8,13 +8,15 @@ public class EnemyController : MonoBehaviour {
 	{
 		move = 0,
 		attack = 1,
-		retreat = 2
+		retreat = 2,
+		idle = 3
 	}
 
 	public float rotationSpeed = 10;
 	public float movementSpeed = 1;
 	// public float timeToKill = 2;
-	public float playerDistance = 3;
+	public float playerAttackDistance = 3;
+	public float playerUnfreezeDistance = 15;
 	public float fleeSpeed = 5;
 
 	public float dieCondition = 0.2f;
@@ -31,6 +33,8 @@ public class EnemyController : MonoBehaviour {
 	bool dying;
 
 	float alpha = 1;
+
+	float movementSpeedTemp;
 
 	// Audio
 	private AudioSource audioSource;
@@ -61,7 +65,7 @@ public class EnemyController : MonoBehaviour {
 
 		if (internalState == EnemyState.retreat)
 		{
-			if (Vector3.Distance(player.transform.position, transform.position) < playerDistance/2)
+			if (Vector3.Distance(player.transform.position, transform.position) < playerAttackDistance/2)
 			{
 				if (Random.Range(0f, 1f) > 0.5f)
 				{
@@ -85,7 +89,7 @@ public class EnemyController : MonoBehaviour {
 			target = Quaternion.LookRotation(player.transform.position - transform.position, -Vector3.forward);
 			time = 0;
 		}
-		else
+		else if (internalState == EnemyState.move)
 		{
 			if (time > directionChangeInterval)
 			{
@@ -103,6 +107,16 @@ public class EnemyController : MonoBehaviour {
 			}
 		}
 
+		if (internalState == EnemyState.idle) {
+			if (movementSpeed != 0){
+				movementSpeedTemp = movementSpeed;
+			}
+			movementSpeed = 0;
+		}
+		else {
+			movementSpeed = movementSpeedTemp;
+		}
+
 		target.x = 0;
 		target.y = 0;
 
@@ -117,12 +131,16 @@ public class EnemyController : MonoBehaviour {
 		EnemyState oldState = internalState;
 		stateChanged = false;
 
-		if (inLantern)
+		if (Vector3.Distance(player.transform.position, transform.position) > playerUnfreezeDistance) 
+		{
+			internalState = EnemyState.idle;
+		}
+		else if (inLantern)
 		{
 			// RETREAT
 			internalState = EnemyState.retreat;
 		}
-		else if(Vector3.Distance(player.transform.position, transform.position) < playerDistance)
+		else if(Vector3.Distance(player.transform.position, transform.position) < playerAttackDistance)
 		{
 			// ATTACK
 			internalState = EnemyState.attack;

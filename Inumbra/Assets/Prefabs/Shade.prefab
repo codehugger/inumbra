@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 82998761711545838}
   m_Layer: 0
   m_Name: Shade
-  m_TagString: Untagged
+  m_TagString: Shade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -270,7 +270,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 10
   movementSpeed: 2
-  playerDistance: 10
+  playerAttackDistance: 10
+  playerUnfreezeDistance: 15
   fleeSpeed: 5
   dieCondition: 0.2
   fadeSpeed: 0.1
