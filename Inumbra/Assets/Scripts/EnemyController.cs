@@ -112,6 +112,7 @@ public class EnemyController : MonoBehaviour {
 	void UpdateState()
 	{
 		EnemyState oldState = internalState;
+		stateChanged = false;
 
 		if (inLantern)
 		{
@@ -129,7 +130,7 @@ public class EnemyController : MonoBehaviour {
 			internalState = EnemyState.move;
 		}
 
-		if (oldState == internalState) {
+		if (oldState != internalState) {
 			stateChanged = true;
 		}
 	}
@@ -188,12 +189,18 @@ public class EnemyController : MonoBehaviour {
 			{
 				case EnemyState.move:
 				if (moveSound != null) {
-					audioSource.PlayOneShot(moveSound);
-					yield return new WaitForSeconds(moveSound.length);
+					int rand = Random.Range(0, 100);
+					if (rand == 1) {
+						audioSource.PlayOneShot(attackSound);
+						yield return new WaitForSeconds(attackSound.length);
+					} else {
+						audioSource.PlayOneShot(moveSound);
+						yield return new WaitForSeconds(moveSound.length);
+					}
 				}
 				break;
 				case EnemyState.attack:
-				if (attackSound != null) {
+				if (attackSound != null && stateChanged) {
 					audioSource.PlayOneShot(attackSound);
 					yield return new WaitForSeconds(attackSound.length);
 				}

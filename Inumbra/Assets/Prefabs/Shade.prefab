@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4354287110571922}
   - component: {fileID: 212581498031307792}
+  - component: {fileID: 114362404956401152}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -67,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1710104325539544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.89, y: 0, z: 0}
+  m_LocalPosition: {x: 9.89, y: 0, z: -1}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4354287110571922}
@@ -263,19 +264,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 1710104325539544}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cef940e2353ad4d47805d7750f9ec069, type: 3}
+  m_Script: {fileID: 11500000, guid: ee26a65c9c434a441a80fbf31118527c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 10
-  movementSpeed: 0.3
-  playerDistance: 10
-  fleeSpeed: 3
+  movementSpeed: 1
+  playerDistance: 3
+  fleeSpeed: 5
   dieCondition: 0.2
   fadeSpeed: 0.1
   moveSound: {fileID: 0}
   attackSound: {fileID: 8300000, guid: cee3ab74b7f0648f0a57e52d0cb24181, type: 3}
-  retreatSound: {fileID: 0}
+  retreatSound: {fileID: 8300000, guid: 65eef4f2d1a4d44a59fbc245cf2c2100, type: 3}
   damageSound: {fileID: 0}
+--- !u!114 &114362404956401152
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1397895022164632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0184ff86886f974d95dfead14754f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MultiplicativeColor: {r: 0, g: 0, b: 0, a: 1}
+  AdditiveColor: {r: 0, g: 0, b: 0, a: 0}
+  Material: {fileID: 2100000, guid: 0a8c132f813f5514b9f5b48ff3956482, type: 2}
+  LightObstacleScale: 1
 --- !u!212 &212581498031307792
 SpriteRenderer:
   m_ObjectHideFlags: 1

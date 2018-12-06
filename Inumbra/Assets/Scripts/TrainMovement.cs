@@ -21,16 +21,14 @@ public class TrainMovement : MonoBehaviour {
 	void Update () {
         float step = speed * Time.deltaTime;
         transform.position = Vector2.MoveTowards(transform.position, target, step);	
-	}
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
             //Check for fuel and fill tank
-            if(other.GetComponent<PlayerInventoryController>().fuelAmount > 0){
-                enoughFuel = true;
-            }
+            
         }
     }
     
@@ -38,7 +36,13 @@ public class TrainMovement : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            //Check for fuel and fill tank
+            if(other.GetComponent<PlayerInventoryController>().fuelAmount > 0){
+                if(Input.GetKeyDown(KeyCode.E))
+                { 
+                enoughFuel = true;
+                speed = 1f;
+                }
+            }
             
         }
     }
