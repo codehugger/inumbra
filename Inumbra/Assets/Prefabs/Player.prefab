@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 114453222494687546}
   - component: {fileID: 60286148689670800}
   - component: {fileID: 50656247180158280}
-  - component: {fileID: 114548490057198322}
   - component: {fileID: 114610065171205898}
+  - component: {fileID: 114380555563284704}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 50933451110556624}
   m_Layer: 9
   m_Name: LanternSpotlight
-  m_TagString: Untagged
+  m_TagString: Lantern
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4492967093437496}
   - component: {fileID: 68438410843172352}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AOE
   m_TagString: Lantern
   m_Icon: {fileID: 0}
@@ -253,8 +253,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1117870103548448}
-  m_LocalRotation: {x: 0, y: 0, z: 0.52293956, w: 0.8523698}
-  m_LocalPosition: {x: 1.3383493, y: 0.3557368, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4052991997845624}
@@ -543,6 +543,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+--- !u!114 &114380555563284704
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1117870103548448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b48a37a44633f2468c2db7f3b979804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuelAmount: 0
 --- !u!114 &114431447365080152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -570,18 +582,6 @@ MonoBehaviour:
   legTurnSpeed: 5
   deadAngle: 30
   animator: {fileID: 95585945186936240}
---- !u!114 &114548490057198322
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1117870103548448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b48a37a44633f2468c2db7f3b979804, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fuelAmount: 0
 --- !u!114 &114610065171205898
 MonoBehaviour:
   m_ObjectHideFlags: 1
