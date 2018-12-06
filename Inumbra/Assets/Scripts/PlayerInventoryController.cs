@@ -14,4 +14,16 @@ public class PlayerInventoryController : MonoBehaviour {
 	void Update () {
 		
 	}
+
+	private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "coal")
+        {
+		fuelAmount += 25;
+		Destroy(other.gameObject);
+
+        }
+        
+    }
+	
 }
