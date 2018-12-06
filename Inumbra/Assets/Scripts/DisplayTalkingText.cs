@@ -39,7 +39,7 @@ public class DisplayTalkingText : MonoBehaviour {
 		displayingText = true;
 		background.SetActive(true);
 		text.SetActive(true);
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(3);
 		background.SetActive(false);
 		text.SetActive(false);
 		displayingText = false;

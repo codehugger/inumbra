@@ -39,6 +39,8 @@ public class PlayerSpawn : MonoBehaviour {
 
 	IEnumerator TurnLanternOn() {
 		playerObject.SetActive(false);
+		PlayerPrefs.SetString("Talk", "It is so dark! I will probably need to find some sort of fuel to get the train moving again.");
+		yield return new WaitForSeconds(4);
 		audioSource.PlayOneShot(lanternSound);
 		yield return new WaitForSeconds(lanternSound.length);
 		playerObject.SetActive(true);
