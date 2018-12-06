@@ -11,8 +11,7 @@ public class PlayerSpawn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		PlayerPrefs.SetInt("Fuel",0);
-		shades = GameObject.FindGameObjectsWithTag("Shade");
+		PlayerPrefs.SetInt("Fuel", 0);
 		audioSource = GetComponent<AudioSource>();
 		DeactivateEnemies();
 		StartCoroutine(TurnLanternOn());
@@ -24,17 +23,11 @@ public class PlayerSpawn : MonoBehaviour {
 	}
 
 	void DeactivateEnemies() {
-		for (int i = 0; i < shades.Length; i++)
-		{
-			shades[i].SetActive(false);
-		}
+		PlayerPrefs.SetInt("EnemiesMove", 0);
 	}
 
 	void ActivateEnemies() {
-		for (int i = 0; i < shades.Length; i++)
-		{
-			shades[i].SetActive(true);
-		}
+		PlayerPrefs.SetInt("EnemiesMove", 1);
 	}
 
 	IEnumerator TurnLanternOn() {

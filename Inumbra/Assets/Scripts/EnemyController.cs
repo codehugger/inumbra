@@ -46,6 +46,9 @@ public class EnemyController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+	}
+
+	void Awake() {
 		target = GetRandomRotation();
 		player = GameObject.FindGameObjectWithTag("Player");
 		directionChangeInterval = Random.value * 3;
@@ -121,7 +124,10 @@ public class EnemyController : MonoBehaviour {
 		target.y = 0;
 
 		transform.rotation = Quaternion.Lerp(transform.rotation, target, rotationSpeed * Time.deltaTime);
-		transform.position += transform.up * movementSpeed * Time.deltaTime;
+
+		if (PlayerPrefs.GetInt("EnemiesMove") != 0) {
+			transform.position += transform.up * movementSpeed * Time.deltaTime;
+		}
 
 		lastTime = Time.time;
 	}
@@ -131,7 +137,7 @@ public class EnemyController : MonoBehaviour {
 		EnemyState oldState = internalState;
 		stateChanged = false;
 
-		if (Vector3.Distance(player.transform.position, transform.position) > playerUnfreezeDistance) 
+		if (Vector3.Distance(player.transform.position, transform.position) > playerUnfreezeDistance)
 		{
 			internalState = EnemyState.idle;
 		}

@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4354287110571922}
   - component: {fileID: 212581498031307792}
   - component: {fileID: 114362404956401152}
+  - component: {fileID: 58205916828952676}
+  - component: {fileID: 108382277915528542}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -38,8 +40,6 @@ GameObject:
   - component: {fileID: 4989728701155622}
   - component: {fileID: 114088907320016266}
   - component: {fileID: 50296827666635480}
-  - component: {fileID: 60466028348755672}
-  - component: {fileID: 108004544079247550}
   - component: {fileID: 82998761711545838}
   m_Layer: 0
   m_Name: Shade
@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1710104325539544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.89, y: 0, z: -1}
+  m_LocalPosition: {x: 32.798264, y: -25.086706, z: -1}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4354287110571922}
@@ -95,35 +95,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &60466028348755672
-PolygonCollider2D:
+--- !u!58 &58205916828952676
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1710104325539544}
+  m_GameObject: {fileID: 1397895022164632}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0, y: 1}
-      - {x: -0.95105654, y: 0.30901697}
-      - {x: -0.5877852, y: -0.80901706}
-      - {x: 0.58778536, y: -0.80901694}
-      - {x: 0.9510565, y: 0.30901712}
+  serializedVersion: 2
+  m_Radius: 0.64
 --- !u!82 &82998761711545838
 AudioSource:
   m_ObjectHideFlags: 1
@@ -220,19 +206,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!108 &108004544079247550
+--- !u!108 &108382277915528542
 Light:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1710104325539544}
+  m_GameObject: {fileID: 1397895022164632}
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 0.8679245, g: 0.0040939935, b: 0.5568762, a: 1}
-  m_Intensity: 3
-  m_Range: 2
-  m_SpotAngle: 4
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -251,7 +237,7 @@ Light:
     m_Bits: 4294967295
   m_Lightmapping: 2
   m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 0, y: 1}
+  m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
@@ -291,8 +277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0184ff86886f974d95dfead14754f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MultiplicativeColor: {r: 0, g: 0, b: 0, a: 1}
-  AdditiveColor: {r: 0, g: 0, b: 0, a: 0}
+  MultiplicativeColor: {r: 1, g: 1, b: 1, a: 1}
+  AdditiveColor: {r: 1, g: 1, b: 1, a: 0}
   Material: {fileID: 2100000, guid: 0a8c132f813f5514b9f5b48ff3956482, type: 2}
   LightObstacleScale: 1
 --- !u!212 &212581498031307792
