@@ -8,7 +8,8 @@ public class PlayerMovement : MonoBehaviour
     public float legTurnSpeed = 5;
     public float deadAngle = 45;
     public Animator animator;
-    
+
+    public Camera sceneCam;
 
     private GameObject _body;
     private GameObject _legs;
@@ -35,7 +36,10 @@ public class PlayerMovement : MonoBehaviour
         
         transform.position = new_pos;
 
-        Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+        Vector3 canvas_pos = GameObject.FindGameObjectWithTag("PixelCanvas").GetComponent<Canvas>().transform.position;
+
+        Vector3 dir = Input.mousePosition - canvas_pos;
+        
         float look_angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Quaternion new_rot = Quaternion.AngleAxis(look_angle, Vector3.forward);
         _body.transform.rotation = new_rot;
