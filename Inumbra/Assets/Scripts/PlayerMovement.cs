@@ -35,14 +35,14 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Speed", length);
         
         transform.position = new_pos;
-
+        Vector3 dir;
         if (GameObject.FindGameObjectWithTag("PixelCanvas") != null){
-        Vector3 canvas_pos = GameObject.FindGameObjectWithTag("PixelCanvas").GetComponent<Canvas>().transform.position;
+            Vector3 canvas_pos = GameObject.FindGameObjectWithTag("PixelCanvas").GetComponent<Canvas>().transform.position;
         
-        Vector3 dir = Input.mousePosition - canvas_pos;
+            dir = Input.mousePosition - canvas_pos;
         }
         else {
-            Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+            dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         }
         float look_angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Quaternion new_rot = Quaternion.AngleAxis(look_angle, Vector3.forward);
