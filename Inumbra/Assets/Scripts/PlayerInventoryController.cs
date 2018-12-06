@@ -23,6 +23,8 @@ public class PlayerInventoryController : MonoBehaviour {
         if (other.gameObject.tag == "coal")
         {
 			fuelAmount += 25;
+			PlayerPrefs.SetInt("Fuel", PlayerPrefs.GetInt("Fuel", 0) + 25);
+			PlayerPrefs.SetString("Talk", "Found Fuel!");
 			StartCoroutine(CoalPickup(other));
         }
     }
