@@ -192,10 +192,10 @@ public class EnemyController : MonoBehaviour {
 			{
 				case EnemyState.move:
 				if (moveSound != null) {
-					int rand = Random.Range(0, 100);
+					int rand = Random.Range(0, 1000);
 					if (rand == 1) {
-						audioSource.PlayOneShot(attackSound);
-						yield return new WaitForSeconds(attackSound.length);
+						// audioSource.PlayOneShot(attackSound);
+						// yield return new WaitForSeconds(attackSound.length);
 					} else if (rand == 2) {
 						audioSource.PlayOneShot(moveSound);
 						yield return new WaitForSeconds(moveSound.length);
