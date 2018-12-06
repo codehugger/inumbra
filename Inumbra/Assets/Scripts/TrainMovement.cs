@@ -7,7 +7,10 @@ public class TrainMovement : MonoBehaviour {
 
     public Vector2 target;
     public float speed;
+
+    public GameObject fadeScreen;
     Vector2 position;
+    bool _finishedAlpha = false;
 
     public TextMeshProUGUI helpText;
 
@@ -24,7 +27,7 @@ public class TrainMovement : MonoBehaviour {
 	void Update () {
         if(PlayerPrefs.GetInt("Fuel") > 0){
             Debug.Log(PlayerPrefs.GetInt("Fuel"));
-            startTrain.SetActive(true);
+           startTrain.SetActive(true);
         }
         float step = speed * Time.deltaTime;
         transform.position = Vector2.MoveTowards(transform.position, target, step);
@@ -41,15 +44,24 @@ public class TrainMovement : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && !_finishedAlpha)
         {
             if(PlayerPrefs.GetInt("Fuel") > 0){
                 helpText.gameObject.SetActive(true);
                 helpText.SetText("Press E to start train");
                 if(Input.GetKeyDown(KeyCode.E))
+<<<<<<< HEAD
                 {
                     PlayerPrefs.SetString("Talk", "THE END!");
                     speed = 1f;
+=======
+                {
+                speed = 1f;
+
+                helpText.SetText("Thank you for playing the Alpha version");
+                fadeScreen.GetComponent<ScreenBlackout>().startFade = true;
+                _finishedAlpha = true;
+>>>>>>> 471ff76c7d07dfaa42592bd1bd3a4a4633c75307
                 }
 
                 StartCoroutine(EndGame());
