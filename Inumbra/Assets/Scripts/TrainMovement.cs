@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TrainMovement : MonoBehaviour {
 
@@ -8,6 +9,8 @@ public class TrainMovement : MonoBehaviour {
     public float speed;
     Vector2 position;
     
+    public TextMeshProUGUI helpText;
+
     // FOR ALPHA
     public GameObject startTrain;
 
@@ -20,6 +23,7 @@ public class TrainMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if(PlayerPrefs.GetInt("Fuel") > 0){
+            Debug.Log(PlayerPrefs.GetInt("Fuel"));
             startTrain.SetActive(true);
         }
         float step = speed * Time.deltaTime;
@@ -39,7 +43,10 @@ public class TrainMovement : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            if(other.GetComponent<PlayerInventoryController>().fuelAmount > 0){
+            if(PlayerPrefs.GetInt("Fuel") > 0){
+                
+                helpText.gameObject.SetActive(true);
+                helpText.SetText("Press E to start train");
                 if(Input.GetKeyDown(KeyCode.E))
                 { 
                 speed = 1f;
@@ -47,6 +54,10 @@ public class TrainMovement : MonoBehaviour {
             }
             
         }
+    }
+
+    private void OnTriggerExit2D(){
+        helpText.gameObject.SetActive(false);
     }
     
    

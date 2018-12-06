@@ -5902,6 +5902,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {x: 0, y: 100000}
   speed: 0
+  helpText: {fileID: 0}
   startTrain: {fileID: 1497128933754870}
 --- !u!114 &114057379810331594
 MonoBehaviour:

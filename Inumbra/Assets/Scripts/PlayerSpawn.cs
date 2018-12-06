@@ -11,6 +11,7 @@ public class PlayerSpawn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		PlayerPrefs.SetInt("Fuel",0);
 		shades = GameObject.FindGameObjectsWithTag("Shade");
 		audioSource = GetComponent<AudioSource>();
 		DeactivateEnemies();
