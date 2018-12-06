@@ -132,9 +132,10 @@ AudioSource:
   m_GameObject: {fileID: 1710104325539544}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243878719340588692, guid: 72a03ee75f01b4f0d880df24c4129515,
+    type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -179,7 +180,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -194,7 +195,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.0027777778
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -268,15 +269,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 10
-  movementSpeed: 1
-  playerDistance: 3
+  movementSpeed: 2
+  playerDistance: 10
   fleeSpeed: 5
   dieCondition: 0.2
   fadeSpeed: 0.1
-  moveSound: {fileID: 0}
+  moveSound: {fileID: 8300000, guid: a2f355d1cbee34c05a63e03016f4b717, type: 3}
   attackSound: {fileID: 8300000, guid: cee3ab74b7f0648f0a57e52d0cb24181, type: 3}
   retreatSound: {fileID: 8300000, guid: 65eef4f2d1a4d44a59fbc245cf2c2100, type: 3}
   damageSound: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: efba6eee8944e4c7d97179fe9b75293f, type: 3}
 --- !u!114 &114362404956401152
 MonoBehaviour:
   m_ObjectHideFlags: 1
