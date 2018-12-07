@@ -26,8 +26,7 @@ public class TrainMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if(PlayerPrefs.GetInt("Fuel") > 0){
-            Debug.Log(PlayerPrefs.GetInt("Fuel"));
-           startTrain.SetActive(true);
+            startTrain.SetActive(true);
         }
         float step = speed * Time.deltaTime;
         transform.position = Vector2.MoveTowards(transform.position, target, step);
@@ -51,14 +50,12 @@ public class TrainMovement : MonoBehaviour {
                 helpText.SetText("Press E to start train");
                 if(Input.GetKeyDown(KeyCode.E))
                 {
-                    PlayerPrefs.SetString("Talk", "THE END!");
+                    //PlayerPrefs.SetString("Talk", "THE END!");
                     speed = 1f;
                     helpText.SetText("Thank you for playing the Alpha version");
-                    fadeScreen.GetComponent<ScreenBlackout>().startFade = true;
                     _finishedAlpha = true;
+                    StartCoroutine(EndGame());
                 }
-
-                StartCoroutine(EndGame());
             }
         }
     }
@@ -68,6 +65,8 @@ public class TrainMovement : MonoBehaviour {
     }
 
     IEnumerator EndGame() {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(5);
+        fadeScreen.GetComponent<ScreenBlackout>().startFade = true;
+        Application.Quit();
     }
 }
