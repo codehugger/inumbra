@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PlayerHealthController : MonoBehaviour {
@@ -25,11 +26,17 @@ public class PlayerHealthController : MonoBehaviour {
 			GetComponentInChildren<SpriteRenderer>().color = Color.gray;
 			GameObject.FindGameObjectWithTag("FadeScreen").GetComponent<ScreenBlackout>().Fade();
 			GetComponent<PlayerMovement>().enabled = false;
+			StartCoroutine(reloadOnDeath());
 		}
 		else {
 			GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(initialColor, Color.red, damage / maxDamage);
 			damage = Mathf.Max(damage - Time.deltaTime * recoverySpeed, 0);
 		}
+	}
+
+	IEnumerator reloadOnDeath(){
+		yield return new WaitForSeconds(3);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	public void TakeDamage () {
