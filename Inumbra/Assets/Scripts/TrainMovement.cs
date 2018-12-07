@@ -21,6 +21,7 @@ public class TrainMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         position = gameObject.transform.position;
+        Cursor.visible = false;
     }
 
 	// Update is called once per frame
