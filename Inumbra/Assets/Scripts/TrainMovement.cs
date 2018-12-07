@@ -50,18 +50,12 @@ public class TrainMovement : MonoBehaviour {
                 helpText.gameObject.SetActive(true);
                 helpText.SetText("Press E to start train");
                 if(Input.GetKeyDown(KeyCode.E))
-<<<<<<< HEAD
                 {
                     PlayerPrefs.SetString("Talk", "THE END!");
                     speed = 1f;
-=======
-                {
-                speed = 1f;
-
-                helpText.SetText("Thank you for playing the Alpha version");
-                fadeScreen.GetComponent<ScreenBlackout>().startFade = true;
-                _finishedAlpha = true;
->>>>>>> 471ff76c7d07dfaa42592bd1bd3a4a4633c75307
+                    helpText.SetText("Thank you for playing the Alpha version");
+                    fadeScreen.GetComponent<ScreenBlackout>().startFade = true;
+                    _finishedAlpha = true;
                 }
 
                 StartCoroutine(EndGame());

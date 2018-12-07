@@ -13,7 +13,6 @@ public class DisplayTalkingText : MonoBehaviour {
 	private bool displayingText;
 
 	void Start() {
-		PlayerPrefs.SetString("Talk", "");
 		textUI = text.GetComponentInChildren<TextMeshProUGUI>();
 		talkingText = PlayerPrefs.GetString("Talk");
 		background.SetActive(false);

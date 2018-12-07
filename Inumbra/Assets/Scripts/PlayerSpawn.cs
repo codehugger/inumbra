@@ -11,6 +11,7 @@ public class PlayerSpawn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		PlayerPrefs.SetString("Talk", "");
 		PlayerPrefs.SetInt("Fuel", 0);
 		audioSource = GetComponent<AudioSource>();
 		DeactivateEnemies();
@@ -32,11 +33,11 @@ public class PlayerSpawn : MonoBehaviour {
 
 	IEnumerator TurnLanternOn() {
 		playerObject.SetActive(false);
-		PlayerPrefs.SetString("Talk", "It is so dark! I will probably need to find some sort of fuel to get the train moving again.");
-		yield return new WaitForSeconds(4);
+		yield return new WaitForSeconds(1);
 		audioSource.PlayOneShot(lanternSound);
 		yield return new WaitForSeconds(lanternSound.length);
 		playerObject.SetActive(true);
+		PlayerPrefs.SetString("Talk", "It is so dark! I will probably need to find some sort of fuel to get the train moving again.");
 		ActivateEnemies();
 	}
 }
