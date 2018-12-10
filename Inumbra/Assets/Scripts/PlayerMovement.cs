@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 new_pos = new Vector3(pos_x, pos_y, 0f);
 
-        //Calculate length of movement for animation state change
+        // Calculate length of movement for animation state change
         float length = Vector3.Magnitude(new_pos - transform.position);
         animator.SetFloat("Speed", length);
         transform.position = new_pos;
@@ -57,28 +57,24 @@ public class PlayerMovement : MonoBehaviour
         if (angH != 0 || angV != 0) {
             var ang = new Vector2(Input.GetAxis("RightH"), Input.GetAxis("RightV"));
             var angle = Vector2.SignedAngle(ang, Vector2.right);
-            // _body.transform.Rotate(Vector3.left, 45 * Time.deltaTime * speed);
-            // _body.transform.Rotate(0, 0, angle * Time.deltaTime * speed);
             _body.transform.rotation = Quaternion.Euler(0, 0, angle);
-
             newRot = Quaternion.AngleAxis(angle, Vector3.forward);
-
         } else if (mousePosition != Input.mousePosition) {
             float look_angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             newRot = Quaternion.AngleAxis(look_angle, Vector3.forward);
             _body.transform.rotation = newRot;
-
             angleDiff = Quaternion.Angle(legsRot, newRot);
-            // TODO: try to rotate legs towards input axis and not body
         }
 
         angleDiff = Quaternion.Angle(legsRot, newRot);
 
+        // Make the legs move with the rotation of the body
         if (angleDiff > deadAngle || System.Math.Abs(in_y) > 0 || System.Math.Abs(in_x) > 0)
         {
             _legs.transform.rotation = Quaternion.Lerp(legsRot, newRot, legTurnSpeed * Time.deltaTime);
         }
 
+        // Store mouse position so we can detect if it is moving or not
         mousePosition = Input.mousePosition;
     }
 }
