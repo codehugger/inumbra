@@ -12,6 +12,8 @@ TagManager:
   - coal
   - PixelCanvas
   - Shade
+  - Train
+  - SpotlightPlayer
   layers:
   - Default
   - TransparentFX

@@ -39,7 +39,6 @@ GameObject:
   - component: {fileID: 4487477101040946}
   - component: {fileID: 212478462305526814}
   - component: {fileID: 58231294451969090}
-  - component: {fileID: 114812958369678456}
   m_Layer: 2
   m_Name: coal
   m_TagString: coal
@@ -148,17 +147,6 @@ MonoBehaviour:
   Material: {fileID: 2100000, guid: 5d8645bc2e5501a4ebd138db5aa609bd, type: 2}
   LightOrigin: {x: 0, y: 0, z: 1}
   Shape: 0
---- !u!114 &114812958369678456
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1855407939172666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4036a0df1461484ab942d9ede7cde25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212478462305526814
 SpriteRenderer:
   m_ObjectHideFlags: 1
