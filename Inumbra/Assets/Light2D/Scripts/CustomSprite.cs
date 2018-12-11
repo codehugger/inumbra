@@ -122,7 +122,7 @@ namespace Light2D
             if (Application.isPlaying && LightingSystem.Instance.EnableNormalMapping)
             {
                 RendererEnabled = _meshRenderer.enabled;
-                _meshRenderer.enabled = false; 
+                _meshRenderer.enabled = false;
             }
         }
 
@@ -164,7 +164,7 @@ namespace Light2D
 
             return matValue.Material;
         }
-        
+
         /// <summary>
         /// Getting material from cache or instantiating new one.
         /// </summary>
@@ -191,7 +191,7 @@ namespace Light2D
             {
                 matValue.UsageCount++;
             }
-            
+
             return matValue.Material;
         }
 
@@ -253,12 +253,12 @@ namespace Light2D
         {
             if (Sprite == null)
                 return;
-            
+
             var rect = Sprite.textureRect;
             var bounds = Sprite.bounds;
             var tex = Sprite.texture;
             var textureSize = new Point2(tex.width, tex.height);
-            
+
             // HACK: mipmap could cause texture padding sometimes so padded size of texture needs to be computed.
             var realSize =
 #if UNITY_EDITOR || UNITY_STANDALONE

@@ -19,8 +19,6 @@ public class AudioSceneSwitcher : MonoBehaviour {
 	IEnumerator playSoundThenLoad()
 	{
 		AudioSource audio = GetComponent<AudioSource>();
-
-		Debug.Log("Playing Sound");
 		audio.Play();
 		//yield return new WaitForSeconds(audio.clip.length);
 
@@ -66,7 +64,6 @@ public class AudioSceneSwitcher : MonoBehaviour {
 			yield return null;
 		}
 
-		Debug.Log("Loading Scene");
 		SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
 	}
 }

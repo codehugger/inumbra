@@ -12,249 +12,158 @@ public class EnemyController : MonoBehaviour {
 		idle = 3
 	}
 
-	public float rotationSpeed = 10;
-	public float movementSpeed = 1;
-	// public float timeToKill = 2;
-	public float playerAttackDistance = 3;
-	public float playerUnfreezeDistance = 15;
-	public float fleeSpeed = 5;
+	// public variables
+	public float reactionDistance = 10.0f;
+	[Range(0.01f, 1.0f)]
+	public float attackDistanceFactor = 0.5f;
+	[Range(1.0f, 2.0f)]
+	public float attackSpeedFactor = 1.5f;
+	[Range(1.0f, 2.0f)]
+	public float retreatSpeedFactor = 1.5f;
+	public float movementSpeed = 1.0f;
+	public bool moveWhenIdle = true;
+	public float hitPoints = 10.0f;
+	public float healingRate = 1.0f;
+	public float damage = 10.0f;
 
-	public float dieCondition = 0.2f;
-	public float fadeSpeed = 0.1f;
-
-	Quaternion target;
-	float time = 0;
-	float lastTime = 0;
-	GameObject player;
-	float directionChangeInterval;
-	EnemyState internalState;
-	bool inLantern;
+	// private variables
+	private GameObject player;
+	bool takingDamage;
+	EnemyState currentState;
+	Transform target;
+	float damageFactor;
+	float currentSpeed;
+	float currentHitPoints;
 	bool stateChanged;
-	bool dying;
-
-	float alpha = 1;
-
-	float movementSpeedTemp;
-
-	// Audio
-	private AudioSource audioSource;
-	public AudioClip moveSound;
-	public AudioClip attackSound;
-	public AudioClip retreatSound;
-	public AudioClip damageSound;
-	public AudioClip deathSound;
-
-	// Use this for initialization
-	void Start () {
-	}
+	LanternController lantern;
+	float timeToChange = 0;
+	Vector2 direction;
+	bool dead = false;
 
 	void Awake() {
-		target = GetRandomRotation();
 		player = GameObject.FindGameObjectWithTag("Player");
-		directionChangeInterval = Random.value * 3;
-		internalState = 0;
-		audioSource = GetComponent<AudioSource>();
-		dying = false;
-
-		// Play all sounds as coroutines
-		StartCoroutine(PlayMovementSound());
-		StartCoroutine(PlayDamageSound());
 	}
 
-	// Update is called once per frame
-	void Update () {
+	void Update() {
+		// We don't do anything when dead
+		if (dead) { return; }
 
 		UpdateState();
 
-		if (internalState == EnemyState.retreat)
+		switch (currentState)
 		{
-			if (Vector3.Distance(player.transform.position, transform.position) < playerAttackDistance/2)
-			{
-				if (Random.Range(0f, 1f) > 0.5f)
-				{
-					target = Quaternion.LookRotation(transform.position + transform.right - transform.up, -Vector3.forward);
-				}
-				else
-				{
-					target = Quaternion.LookRotation(transform.position - transform.right - transform.up, -Vector3.forward);
-				}
-			}
-			else
-			{
-				target = Quaternion.LookRotation(transform.position - transform.up, -Vector3.forward);
-			}
-			time = 0;
-			movementSpeed = fleeSpeed;
-			//StartCoroutine(PlayRetreatSound());
-		}
-		else if (internalState == EnemyState.attack)
-		{
-			target = Quaternion.LookRotation(player.transform.position - transform.position, -Vector3.forward);
-			time = 0;
-		}
-		else if (internalState == EnemyState.move)
-		{
-			if (time > directionChangeInterval)
-			{
-				// if (Random.Range(0f, 1f) > 0.7f)
-				// {
-				// 	movementSpeed = 0;
-				// }
-				// else
-				// {
-				// 	movementSpeed += 0.2f;
-				// }
-				target = GetRandomRotation();
-				time = 0;
-				directionChangeInterval = Random.value * 3;
-			}
+			case EnemyState.move:
+			PerformMoveAction();
+			break;
+			case EnemyState.attack:
+			PerformAttackAction();
+			break;
+			case EnemyState.retreat:
+			PerformRetreatAction();
+			break;
+			case EnemyState.idle:
+			PerformIdleAction();
+			break;
 		}
 
-		if (internalState == EnemyState.idle) {
-			if (movementSpeed != 0){
-				movementSpeedTemp = movementSpeed;
-			}
-			movementSpeed = 0;
-		}
-		else {
-			movementSpeed = movementSpeedTemp;
-		}
+		if (takingDamage) { HandleDamage(); }
+		else { Regenerate(); }
 
-		target.x = 0;
-		target.y = 0;
+		// if in a fully focused beam halt completely
+		currentSpeed = movementSpeed * (1 - damageFactor);
 
-		transform.rotation = Quaternion.Lerp(transform.rotation, target, rotationSpeed * Time.deltaTime);
+		Debug.Log(string.Format("Speed: {0}", currentSpeed));
+		Debug.Log(string.Format("Hit Points: {0}", currentHitPoints));
+		Debug.Log(string.Format("State: {0}", currentState));
 
-		if (PlayerPrefs.GetInt("EnemiesMove") != 0) {
-			transform.position += transform.up * movementSpeed * Time.deltaTime;
-		}
-
-		lastTime = Time.time;
+		transform.position = Vector2.MoveTowards(transform.position, direction, currentSpeed);
 	}
 
-	void UpdateState()
-	{
-		EnemyState oldState = internalState;
+	void UpdateState() {
+		EnemyState oldState = currentState;
 		stateChanged = false;
+		var playerDistance = Vector3.Distance(player.transform.position, transform.position);
 
-		if (Vector3.Distance(player.transform.position, transform.position) > playerUnfreezeDistance)
-		{
-			internalState = EnemyState.idle;
-		}
-		else if (inLantern)
-		{
-			// RETREAT
-			internalState = EnemyState.retreat;
-		}
-		else if(Vector3.Distance(player.transform.position, transform.position) < playerAttackDistance)
-		{
-			// ATTACK
-			internalState = EnemyState.attack;
-		}
-		else
-		{
-			// MOVE
-			internalState = EnemyState.move;
-		}
-
-		if (oldState != internalState) {
-			stateChanged = true;
-		}
-	}
-
-	Quaternion GetRandomRotation()
-	{
-		Quaternion randomRotation = Random.rotation;
-		return randomRotation;
-	}
-
-	void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.gameObject.tag == "Player")
-		{
-			player.GetComponent<PlayerHealthController>().TakeDamage();
-			Destroy(gameObject);
-		}
-		else if (other.gameObject.tag == "Lantern")
-		{
-			inLantern = true;
-		}
-	}
-
-	void OnTriggerStay2D(Collider2D other)
-	{
-		// Debug.Log(Physics.Raycast(transform.position, player.transform.position - transform.position, 100));
-		if (other.gameObject.tag == "Lantern")// && !Physics.Raycast(transform.position, player.transform.position - transform.position, 100))
-		{
-			alpha -= Time.deltaTime / dieCondition * fadeSpeed;
-			if (alpha < dieCondition)
-			{
-				dying = true;
-				Debug.Log("DEAD");
+		// player out of reach => move
+		if (playerDistance > reactionDistance) {
+			if (moveWhenIdle) {
+				currentState = EnemyState.move;
+			} else {
+				currentState = EnemyState.idle;
 			}
-			else
-			{
-				Color color = GetComponentInChildren<SpriteRenderer>().color;
-				color.a = alpha;//Mathf.Min(color.a - Time.deltaTime * exposureTime/timeToKill, baseFade);
-				GetComponentInChildren<SpriteRenderer>().color = color;
-				transform.localScale += new Vector3(0.005f, 0.005f, 0);
+
+			// reset the movement speed when just moving around
+			currentSpeed = movementSpeed;
+
+			// change direction after a period of time
+			if (Time.time >= timeToChange) {
+				var randomX = Random.Range(-1.0f, 1.0f);
+				var randomY = Random.Range(-1.0f, 1.0f);
+				direction = (new Vector3(randomX, randomY, 0) - transform.position).normalized;
 			}
 		}
-	}
-
-	void OnTriggerExit2D(Collider2D other)
-	{
-		if (other.gameObject.tag == "Lantern")
-		{
-			inLantern = false;
+		// taking damage and not within attack distance => retreat
+		else if (takingDamage && playerDistance > (reactionDistance * attackDistanceFactor)) {
+			direction = -(player.transform.position - transform.position).normalized;
+			currentState = EnemyState.retreat;
+			currentSpeed = movementSpeed * retreatSpeedFactor;
+		}
+		// inside attack range => attack
+		else if (playerDistance < (reactionDistance * attackDistanceFactor)) {
+			direction = (player.transform.position - transform.position).normalized;
+			currentState = EnemyState.attack;
+			currentSpeed = movementSpeed * attackSpeedFactor;
 		}
 	}
 
-	IEnumerator PlayMovementSound() {
-		while (true) {
-			switch (internalState)
-			{
-				case EnemyState.move:
-				if (moveSound != null) {
-					int rand = Random.Range(0, 1000);
-					if (rand == 1) {
-						// audioSource.PlayOneShot(attackSound);
-						// yield return new WaitForSeconds(attackSound.length);
-					} else if (rand == 2) {
-						audioSource.PlayOneShot(moveSound);
-						yield return new WaitForSeconds(moveSound.length);
-					}
-				}
-				break;
-				case EnemyState.attack:
-				if (attackSound != null && stateChanged) {
-					audioSource.PlayOneShot(attackSound);
-					yield return new WaitForSeconds(attackSound.length);
-				}
-				break;
-				case EnemyState.retreat:
-				if (retreatSound != null && stateChanged) {
-					audioSource.PlayOneShot(retreatSound);
-					yield return new WaitForSeconds(retreatSound.length);
-				}
-				break;
-			}
-			yield return null;
+	void PerformMoveAction() {}
+
+	void PerformAttackAction() {}
+
+	void PerformRetreatAction() {}
+
+	void PerformIdleAction() {
+		transform.right = target.position - transform.position;
+	}
+
+	void HandleDamage() {
+		// use the lantern damage and time factor to produce damage per second
+		if (lantern != null) {
+			currentHitPoints -= Time.deltaTime * lantern.currentDamage;
+		}
+
+		if (currentHitPoints <= 0) {
+			dead = true;
+			StartCoroutine(HandleDeath());
 		}
 	}
 
-	IEnumerator PlayDamageSound() {
-		while (true) {
-			if (dying) {
-				audioSource.PlayOneShot(deathSound);
-				yield return new WaitForSeconds(deathSound.length);
-				Destroy(gameObject);
-			}
-			else if (damageSound && inLantern) {
-				audioSource.PlayOneShot(damageSound);
-				yield return new WaitForSeconds(damageSound.length);
-			}
-			yield return null;
+	void Regenerate() {
+		if (currentHitPoints < hitPoints) {
+			currentHitPoints += healingRate * Time.deltaTime;
+			currentHitPoints = Mathf.Clamp(currentHitPoints, 0.0f, hitPoints);
 		}
+	}
+
+	void OnTriggerEnter2D(Collider2D collider) {
+		if (collider.gameObject.tag == "Lantern") {
+			lantern = collider.gameObject.GetComponentInParent<LanternController>();
+			takingDamage = true;
+		}
+		if (collider.gameObject.tag == "Player") {
+			collider.gameObject.GetComponent<PlayerHealthController>().TakeDamage(damage);
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D collider) {
+		if (collider.gameObject.tag == "Lantern") {
+			lantern = null;
+			takingDamage = false;
+		}
+	}
+
+	IEnumerator HandleDeath() {
+		yield return new WaitForSeconds(1);
+		Destroy(gameObject);
 	}
 }
