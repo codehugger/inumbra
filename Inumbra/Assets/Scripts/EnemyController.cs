@@ -7,30 +7,31 @@ public class EnemyController : MonoBehaviour {
 	enum EnemyState
 	{
 		move = 0,
-		attack = 1,
-		retreat = 2,
-		idle = 3
+		follow = 1,
+		attack = 2,
+		retreat = 3,
+		idle = 4
 	}
 
 	// public variables
 	public float reactionDistance = 10.0f;
 	[Range(0.01f, 1.0f)]
 	public float attackDistanceFactor = 0.5f;
-	[Range(1.0f, 2.0f)]
-	public float attackSpeedFactor = 1.5f;
-	[Range(1.0f, 2.0f)]
-	public float retreatSpeedFactor = 1.5f;
+	[Range(1.0f, 10.0f)]
+	public float attackSpeedMultiplier = 2.0f;
+	[Range(1.0f, 10.0f)]
+	public float retreatSpeedMultiplier = 1.5f;
 	public float movementSpeed = 1.0f;
 	public bool moveWhenIdle = true;
 	public float hitPoints = 10.0f;
 	public float healingRate = 1.0f;
 	public float damage = 10.0f;
+	public float timeBetweenDirectionChanges = 3f;
 
 	// private variables
 	private GameObject player;
 	bool takingDamage;
 	EnemyState currentState;
-	Transform target;
 	float damageFactor;
 	float currentSpeed;
 	float currentHitPoints;
@@ -40,90 +41,99 @@ public class EnemyController : MonoBehaviour {
 	Vector2 direction;
 	bool dead = false;
 
-	void Awake() {
+	void Start() {
 		player = GameObject.FindGameObjectWithTag("Player");
+		currentState = EnemyState.move;
+		currentHitPoints = hitPoints;
+		RotateRandom();
 	}
 
 	void Update() {
+
 		// We don't do anything when dead
 		if (dead) { return; }
 
 		UpdateState();
 
-		switch (currentState)
-		{
-			case EnemyState.move:
-			PerformMoveAction();
-			break;
-			case EnemyState.attack:
-			PerformAttackAction();
-			break;
-			case EnemyState.retreat:
-			PerformRetreatAction();
-			break;
-			case EnemyState.idle:
-			PerformIdleAction();
-			break;
-		}
-
 		if (takingDamage) { HandleDamage(); }
 		else { Regenerate(); }
 
-		// if in a fully focused beam halt completely
-		currentSpeed = movementSpeed * (1 - damageFactor);
+		UpdateSpeed();
+		UpdateRotation();
 
 		Debug.Log(string.Format("Speed: {0}", currentSpeed));
-		Debug.Log(string.Format("Hit Points: {0}", currentHitPoints));
+		// Debug.Log(string.Format("Hit Points: {0}", currentHitPoints));
 		Debug.Log(string.Format("State: {0}", currentState));
 
-		transform.position = Vector2.MoveTowards(transform.position, direction, currentSpeed);
+		transform.position += (transform.up * currentSpeed);
 	}
 
 	void UpdateState() {
-		EnemyState oldState = currentState;
+		// EnemyState oldState = currentState;
 		stateChanged = false;
-		var playerDistance = Vector3.Distance(player.transform.position, transform.position);
+		var oldState = currentState;
+		var playerDistance = Vector2.Distance(player.transform.position, transform.position);
 
 		// player out of reach => move
 		if (playerDistance > reactionDistance) {
-			if (moveWhenIdle) {
-				currentState = EnemyState.move;
-			} else {
-				currentState = EnemyState.idle;
-			}
-
-			// reset the movement speed when just moving around
-			currentSpeed = movementSpeed;
-
-			// change direction after a period of time
-			if (Time.time >= timeToChange) {
-				var randomX = Random.Range(-1.0f, 1.0f);
-				var randomY = Random.Range(-1.0f, 1.0f);
-				direction = (new Vector3(randomX, randomY, 0) - transform.position).normalized;
-			}
-		}
-		// taking damage and not within attack distance => retreat
-		else if (takingDamage && playerDistance > (reactionDistance * attackDistanceFactor)) {
-			direction = -(player.transform.position - transform.position).normalized;
-			currentState = EnemyState.retreat;
-			currentSpeed = movementSpeed * retreatSpeedFactor;
+			currentState = EnemyState.move;
 		}
 		// inside attack range => attack
 		else if (playerDistance < (reactionDistance * attackDistanceFactor)) {
-			direction = (player.transform.position - transform.position).normalized;
 			currentState = EnemyState.attack;
-			currentSpeed = movementSpeed * attackSpeedFactor;
+		}
+		// taking damage and not within attack distance => retreat
+		else if (takingDamage && playerDistance > (reactionDistance * attackDistanceFactor)) {
+			currentState = EnemyState.retreat;
+		}
+		// player within reaction range => follow
+		else if (playerDistance < reactionDistance) {
+			currentState = EnemyState.follow;
+		}
+
+		// keep track of state updates
+		if (oldState != currentState) { stateChanged = true; }
+	}
+
+	void UpdateRotation() {
+		switch (currentState) {
+			case EnemyState.follow:
+			case EnemyState.attack:
+				RotateTowardsPlayer();
+				break;
+			case EnemyState.retreat:
+				RotateAwayFromPlayer();
+				break;
+			default:
+				if (Time.time >= timeToChange) {
+					RotateRandom();
+					timeToChange += timeBetweenDirectionChanges;
+				}
+				break;
 		}
 	}
 
-	void PerformMoveAction() {}
+	void UpdateSpeed() {
+		// if in a fully focused beam halt completely
+		currentSpeed = movementSpeed * Time.deltaTime;
 
-	void PerformAttackAction() {}
+		switch (currentState)
+		{
+			case EnemyState.idle:
+				currentSpeed = 0.0f;
+				break;
+			case EnemyState.attack:
+				currentSpeed *= attackSpeedMultiplier;
+				break;
+			case EnemyState.retreat:
+				currentSpeed *= retreatSpeedMultiplier;
+				break;
+		}
 
-	void PerformRetreatAction() {}
-
-	void PerformIdleAction() {
-		transform.right = target.position - transform.position;
+		// when taking damage slow down
+		if (takingDamage) {
+			currentSpeed *= (1 - damageFactor);
+		}
 	}
 
 	void HandleDamage() {
@@ -152,6 +162,7 @@ public class EnemyController : MonoBehaviour {
 		}
 		if (collider.gameObject.tag == "Player") {
 			collider.gameObject.GetComponent<PlayerHealthController>().TakeDamage(damage);
+			StartCoroutine(HandleDeath());
 		}
 	}
 
@@ -163,7 +174,35 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	IEnumerator HandleDeath() {
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(0.1f);
 		Destroy(gameObject);
+	}
+
+	void RotateRandom() {
+		Debug.Log("Rotating Random");
+		transform.Rotate(Vector3.forward, Random.Range(0, 360));
+	}
+
+	void RotateTowardsPlayer() {
+		Debug.Log("Rotating Towards Player");
+		var target = Quaternion.LookRotation(player.transform.position - transform.position, -Vector3.forward);
+		// only rotate on the z-axis so we don't skew the sprite
+		target.x = 0; target.y = 0;
+		transform.rotation = Quaternion.Lerp(transform.rotation, target, currentSpeed);
+	}
+
+	void RotateAwayFromPlayer() {
+		Debug.Log("Rotating Away From Player");
+		var target = Quaternion.LookRotation(player.transform.position - transform.position, -Vector3.forward);
+		// only rotate on the z-axis so we don't skew the sprite
+		target.x = 0; target.y = 0; target.z *= -1;
+		transform.rotation = Quaternion.Lerp(transform.rotation, target, currentSpeed);
+	}
+
+	private void OnDrawGizmos(){
+   		UnityEditor.Handles.color = Color.green;
+		UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, reactionDistance);
+		UnityEditor.Handles.color = Color.red;
+		UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, reactionDistance * attackDistanceFactor);
 	}
 }
