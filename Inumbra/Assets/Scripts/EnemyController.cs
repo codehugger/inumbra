@@ -28,6 +28,8 @@ public class EnemyController : MonoBehaviour {
 	public float damage = 10.0f;
 	public float timeBetweenDirectionChanges = 3f;
 
+	public Animator anim;
+
 	// private variables
 	private GameObject player;
 	bool takingDamage;
@@ -64,8 +66,10 @@ public class EnemyController : MonoBehaviour {
 		Debug.Log(string.Format("Speed: {0}", currentSpeed));
 		// Debug.Log(string.Format("Hit Points: {0}", currentHitPoints));
 		Debug.Log(string.Format("State: {0}", currentState));
-
+		Vector3 old_position = transform.position;
 		transform.position += (transform.up * currentSpeed);
+		float length = Vector3.Magnitude(transform.position - old_position);
+        anim.SetFloat("Speed", length);
 	}
 
 	void UpdateState() {
