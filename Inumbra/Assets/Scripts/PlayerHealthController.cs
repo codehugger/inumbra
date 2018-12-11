@@ -5,33 +5,33 @@ using UnityEngine;
 
 public class PlayerHealthController : MonoBehaviour {
 
-	public int hitsToDie = 5;
+	public float healingRate = 1;
+	public float hitPoints = 30;
 
-	public float recoverySpeed = 1;
-
-	float damage = 0;
-	float maxDamage;
+	float currentHitPoints;
 	Color initialColor;
 
 	// Use this for initialization
 	void Start () {
-		maxDamage = hitsToDie;
+		currentHitPoints = hitPoints;
 		initialColor = GetComponentInChildren<SpriteRenderer>().color;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		// Debug.Log(damage);
-		if (damage >= maxDamage) {
-			GetComponentInChildren<SpriteRenderer>().color = Color.gray;
+		if (currentHitPoints <= 0) {
+			GetComponentInChildren<SpriteRenderer>().color = Color.grey;
 			GameObject.FindGameObjectWithTag("FadeScreen").GetComponent<ScreenBlackout>().Fade();
 			GetComponent<PlayerMovement>().enabled = false;
 			StartCoroutine(reloadOnDeath());
 		}
-		else {
-			GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(initialColor, Color.red, damage / maxDamage);
-			damage = Mathf.Max(damage - Time.deltaTime * recoverySpeed, 0);
+		else if (currentHitPoints < hitPoints) {
+			GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(initialColor, Color.red, currentHitPoints / hitPoints);
+		} else {
+			GetComponentInChildren<SpriteRenderer>().color = initialColor;
 		}
+
+		Regenerate();
 	}
 
 	IEnumerator reloadOnDeath(){
@@ -39,7 +39,14 @@ public class PlayerHealthController : MonoBehaviour {
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
-	public void TakeDamage () {
+	void Regenerate() {
+		if (currentHitPoints < hitPoints) {
+			currentHitPoints += healingRate * Time.deltaTime;
+			currentHitPoints = Mathf.Clamp(currentHitPoints, 0.0f, hitPoints);
+		}
+	}
+
+	public void TakeDamage(float damage) {
 		damage += 1;
 	}
 }

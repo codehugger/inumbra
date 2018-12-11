@@ -13,6 +13,11 @@ public class LanternController : MonoBehaviour {
 	public bool activated = false;
 
 	public float speed = 75;
+	public float damagePerSecond = 5;
+	[HideInInspector]
+	public float currentDamage = 0;
+	[HideInInspector]
+	public float rayIntensity = 0f;
 
 	Vector3 spotlightChangeVector = new Vector3(1, 0, 0);
 	Vector3 aoeChangeVector = new Vector3(0, 1, 0);
@@ -20,13 +25,12 @@ public class LanternController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetButton("Fire1") && lightVisual.transform.localScale.x > minRay) {
 			lightVisual.transform.localScale -= spotlightChangeVector * Time.deltaTime * speed;
 			lightCollider.transform.localScale -= aoeChangeVector * Time.deltaTime * speed / 3;
-			lightVisual.GetComponent<LightSprite>();
 		} else if (!Input.GetButton("Fire1") && lightVisual.transform.localScale.x < maxRay) {
 			lightVisual.transform.localScale += spotlightChangeVector * Time.deltaTime * speed * 3;
 			lightCollider.transform.localScale += aoeChangeVector * Time.deltaTime * speed;
@@ -49,5 +53,10 @@ public class LanternController : MonoBehaviour {
 			tmp.y = 1.8f;
 			lightCollider.transform.localScale = tmp;
 		}
+
+		// convert light to normalized rayIntensity
+		float lightX = Mathf.Clamp(lightVisual.transform.localScale.x, minRay, maxRay);
+		rayIntensity = Mathf.Clamp(1 - (lightX-minRay)/(maxRay-minRay), 0.01f, 1.0f);
+		currentDamage = rayIntensity * damagePerSecond;
 	}
 }
