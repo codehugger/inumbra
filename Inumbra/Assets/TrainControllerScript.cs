@@ -38,21 +38,23 @@ public class TrainControllerScript : MonoBehaviour {
 			for(int i = currentTile.x -GRID_X; i < currentTile.x + GRID_X ; i++){
 				Vector3Int tile = new Vector3Int(i,currentTile.y + GRID_Y, 0);
 				groundTileMap.SetTile(tile, groundTile);
-
-				System.Random random = new System.Random();
-				int randInt = random.Next(2);
-				if(randInt == 0){
-					GameObject gameObject = log;
-				}
-				else{
-					GameObject gameObject = stone;
-				}
-				randInt = random.Next(4); // 20% chance of appearing
-				if(randInt == 0){
-					initializeRandomObject(gameObject);
-				}
+	
 			}
 			previouseTile = currentTile;
+			
+			System.Random random = new System.Random();
+			int randInt = random.Next(2);
+			GameObject gameObj;
+			if(randInt == 0){
+					gameObj = log;
+			}
+			else{
+				gameObj = stone;
+			}
+			randInt = random.Next(4); // 20% chance of appearing
+			if(randInt == 0){
+				initializeRandomObject(gameObj);
+			}
 		}
 	}
 
