@@ -43,15 +43,22 @@ public class EnemyController : MonoBehaviour {
 	Vector2 direction;
 	bool dead = false;
 
+	ParticleSystem ps;
+
 	void Start() {
 		player = GameObject.FindGameObjectWithTag("Player");
 		currentState = EnemyState.move;
 		currentHitPoints = hitPoints;
+		ps = gameObject.GetComponent<ParticleSystem>();
 		RotateRandom();
 	}
 
 	void Update() {
-
+		if (takingDamage){
+			if (Random.Range(-0.2f, 1f) < lantern.rayIntensity){
+				ps.Emit(1);
+			}
+		}
 		// We don't do anything when dead
 		if (dead) { return; }
 
