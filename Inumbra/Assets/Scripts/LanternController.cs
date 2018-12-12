@@ -40,6 +40,21 @@ public class LanternController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		bool sprintEnabled = Input.GetKey(KeyCode.LeftShift) || Input.GetAxis("XBox L2") > 0.2 || Input.GetButton("Fire2");
+		float in_x = Input.GetAxis("Horizontal");
+        float in_y = Input.GetAxis("Vertical");
+		bool isMoving = (in_x != 0 || in_y != 0);
+
+		if (sprintEnabled && isMoving) {
+			lightVisual.GetComponent<LightSprite>().Color.a = 0;
+			currentDamage = 0;
+			rayIntensity = 0;
+			lightCollider.SetActive(false);
+			return;
+		} else {
+			lightCollider.SetActive(true);
+		}
+
 		// XBox triggers are 0 to 1
 		// PS4 triggers are -1 to 1
 
