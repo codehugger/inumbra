@@ -37,3 +37,4 @@ Thumbs.db
 # Visual Studio #
 # ============= #
 .vs
+**/obj
