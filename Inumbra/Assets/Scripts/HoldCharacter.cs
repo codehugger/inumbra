@@ -10,10 +10,11 @@ public class HoldCharacter : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-        other.gameObject.transform.SetParent(transform);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.gameObject.transform.SetParent(transform);
 
         //hide roof
-        roof.SetActive(false);
+        //roof.SetActive(false);
        // roof.GetComponent<Renderer>().enabled = false;
         
        // roof.GetComponent<LightObstacleGenerator>().enabled = false;
@@ -25,10 +26,12 @@ public class HoldCharacter : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-        other.gameObject.transform.SetParent(null);
+            
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.gameObject.transform.SetParent(null);
 
         //show roof
-        roof.SetActive(true);
+        //roof.SetActive(true);
         }
     }
 }
