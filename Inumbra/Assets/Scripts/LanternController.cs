@@ -39,7 +39,11 @@ public class LanternController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButton("Fire1") && lightVisual.transform.localScale.x > minRay) {
+
+		// XBox triggers are 0 to 1
+		// PS4 triggers are -1 to 1
+
+		if ((Input.GetButton("Fire1") || Input.GetAxis("XBox R2") > 0.2) && lightVisual.transform.localScale.x > minRay) {
 			lightVisual.transform.localScale -= spotlightChangeVector * Time.deltaTime * speed;
 			lightCollider.transform.localScale -= aoeChangeVector * Time.deltaTime * speed / 3;
 			float cur_alpha = lightVisual.GetComponent<LightSprite>().Color.a;
@@ -51,8 +55,7 @@ public class LanternController : MonoBehaviour {
 				exitFocus = false;
 				StartCoroutine(PlayLanternSound());
 			}
-			
-		} else if (!Input.GetButton("Fire1") && lightVisual.transform.localScale.x < maxRay) {
+		} else if (!Input.GetButton("Fire1") && Input.GetAxis("XBox R2") < 0.2 && lightVisual.transform.localScale.x < maxRay) {
 			lightVisual.transform.localScale += spotlightChangeVector * Time.deltaTime * speed * 3;
 			lightCollider.transform.localScale += aoeChangeVector * Time.deltaTime * speed;
 			float cur_alpha = lightVisual.GetComponent<LightSprite>().Color.a;

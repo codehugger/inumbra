@@ -63,9 +63,10 @@ public class EnemyController : MonoBehaviour {
 		UpdateSpeed();
 		UpdateRotation();
 
-		Debug.Log(string.Format("Speed: {0}", currentSpeed));
+		// Debug.Log(string.Format("Speed: {0}", currentSpeed));
 		// Debug.Log(string.Format("Hit Points: {0}", currentHitPoints));
-		Debug.Log(string.Format("State: {0}", currentState));
+		// Debug.Log(string.Format("State: {0}", currentState));
+
 		Vector3 old_position = transform.position;
 		transform.position += (transform.up * currentSpeed);
 		float length = Vector3.Magnitude(transform.position - old_position);
@@ -183,12 +184,10 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void RotateRandom() {
-		Debug.Log("Rotating Random");
 		transform.Rotate(Vector3.forward, Random.Range(0, 360));
 	}
 
 	void RotateTowardsPlayer() {
-		Debug.Log("Rotating Towards Player");
 		var target = Quaternion.LookRotation(player.transform.position - transform.position, -Vector3.forward);
 		// only rotate on the z-axis so we don't skew the sprite
 		target.x = 0; target.y = 0;
@@ -196,7 +195,6 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void RotateAwayFromPlayer() {
-		Debug.Log("Rotating Away From Player");
 		var target = Quaternion.LookRotation(player.transform.position - transform.position, -Vector3.forward);
 		// only rotate on the z-axis so we don't skew the sprite
 		target.x = 0; target.y = 0; target.z *= -1;

@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
 
     public Camera sceneCam;
 
+    [Range(1.0f, 5.0f)]
+    public float sprintMultiplier = 1.5f;
+
     private GameObject _body;
     private GameObject _legs;
 
@@ -26,15 +29,25 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool sprintEnabled = Input.GetKey(KeyCode.LeftShift) || Input.GetAxis("XBox L2") > 0.2 || Input.GetButton("Fire2");
+        var currentSpeed = speed;
+
+        Debug.Log(string.Format("Sprint Enabled: {0}", sprintEnabled));
+
+        if (sprintEnabled) {
+            currentSpeed *= sprintMultiplier;
+        }
+
         float in_x = Input.GetAxis("Horizontal");
         float in_y = Input.GetAxis("Vertical");
-        float pos_x = transform.position.x + (in_x * speed * Time.deltaTime);
-        float pos_y = transform.position.y + (in_y * speed * Time.deltaTime);
+        float pos_x = transform.position.x + (in_x * currentSpeed * Time.deltaTime);
+        float pos_y = transform.position.y + (in_y * currentSpeed * Time.deltaTime);
 
         Vector3 new_pos = new Vector3(pos_x, pos_y, 0f);
 
         // Calculate length of movement for animation state change
         float length = Vector3.Magnitude(new_pos - transform.position);
+        Debug.Log(length);
         animator.SetFloat("Speed", length);
         transform.position = new_pos;
 
@@ -48,14 +61,23 @@ public class PlayerMovement : MonoBehaviour
             dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         }
 
-        var angH = Input.GetAxis("RightH");
-        var angV = Input.GetAxis("RightV");
+        var angH = 0.0f;
+        var angV = 0.0f;
+
+        if (Input.GetJoystickNames()[0].Contains("Xbox")) {
+            angH = Input.GetAxis("XBoxRightH");
+            angV = Input.GetAxis("XBoxRightV");
+        } else {
+            angH = Input.GetAxis("PS4RightH");
+            angV = Input.GetAxis("PS4RightV");
+        }
+
         float angleDiff;
         Quaternion legsRot = _legs.transform.rotation;
         Quaternion newRot = _body.transform.rotation;
 
         if (angH != 0 || angV != 0) {
-            var ang = new Vector2(Input.GetAxis("RightH"), Input.GetAxis("RightV"));
+            var ang = new Vector2(angH, angV);
             var angle = Vector2.SignedAngle(ang, Vector2.right);
             _body.transform.rotation = Quaternion.Euler(0, 0, angle);
             newRot = Quaternion.AngleAxis(angle, Vector3.forward);
