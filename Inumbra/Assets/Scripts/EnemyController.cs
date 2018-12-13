@@ -88,7 +88,11 @@ public class EnemyController : MonoBehaviour {
 
 		// player out of reach => move
 		if (playerDistance > reactionDistance) {
+			if (moveWhenIdle) {
 			currentState = EnemyState.move;
+			} else {
+				currentState = EnemyState.idle;
+			}
 		}
 		// inside attack range => attack
 		else if (playerDistance < (reactionDistance * attackDistanceFactor)) {
