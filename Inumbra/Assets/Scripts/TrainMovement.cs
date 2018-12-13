@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class TrainMovement : MonoBehaviour {
 
@@ -10,22 +11,24 @@ public class TrainMovement : MonoBehaviour {
 
     public GameObject fadeScreen;
     Vector2 position;
-    bool _finishedAlpha = false;
 
     public TextMeshProUGUI helpText;
 
     // FOR ALPHA
     public GameObject startTrain;
 
+    public string nameOfNextScene;
+    public bool useTrainScene = true;
+
 
 	// Use this for initialization
-	void Start () {
+	void Start() {
         position = gameObject.transform.position;
         Cursor.visible = false;
     }
 
 	// Update is called once per frame
-	void Update () {
+	void Update() {
         if(PlayerPrefs.GetInt("Fuel") > 0){
             startTrain.SetActive(true);
         }
@@ -33,41 +36,40 @@ public class TrainMovement : MonoBehaviour {
         transform.position = Vector2.MoveTowards(transform.position, target, step);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
+    private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "Player")
         {
             //Check for fuel and fill tank
-
         }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player" && !_finishedAlpha)
-        {
-            if(PlayerPrefs.GetInt("Fuel") > 0){
+    private void OnTriggerStay2D(Collider2D other) {
+        if (other.gameObject.tag == "Player" && speed <= 0) {
+            if (PlayerPrefs.GetInt("Fuel") > 0) {
                 helpText.gameObject.SetActive(true);
                 helpText.SetText("Press E to start train");
-                if(Input.GetKeyDown(KeyCode.E))
-                {
+
+                if (Input.GetKeyDown(KeyCode.E)) {
                     //PlayerPrefs.SetString("Talk", "THE END!");
                     speed = 1f;
                     helpText.SetText("Thank you for playing the Alpha version");
-                    _finishedAlpha = true;
-                    StartCoroutine(EndGame());
+                    StartCoroutine(EndScene());
                 }
             }
         }
     }
 
-    private void OnTriggerExit2D(){
+    private void OnTriggerExit2D() {
         helpText.gameObject.SetActive(false);
     }
 
-    IEnumerator EndGame() {
+    IEnumerator EndScene() {
         yield return new WaitForSeconds(5);
         fadeScreen.GetComponent<ScreenBlackout>().startFade = true;
-        Application.Quit();
+        if (useTrainScene) {
+            SceneManager.LoadScene("Train");
+        } else {
+            SceneManager.LoadScene(nameOfNextScene);
+        }
     }
 }
