@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114165647650570544}
   - component: {fileID: 114549396878877012}
   - component: {fileID: 82717556598032166}
+  - component: {fileID: 114476268176771988}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -151,13 +152,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 0}
   background: {fileID: 0}
---- !u!114 &114549396878877012
+--- !u!114 &114476268176771988
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1747802157761248}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb3015dc251084e2991fc2b7c2e35901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingFuelLevel: 0
+  turnOnLantern: 1
+  enemiesCanMove: 1
+  wipeOnStart: 0
+--- !u!114 &114549396878877012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1747802157761248}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c29fba9bb4c6468cab467661155de8f, type: 3}
   m_Name: 

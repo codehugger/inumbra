@@ -15,6 +15,7 @@ TagManager:
   - Train
   - SpotlightPlayer
   - FuelGauge
+  - FuelNeedle
   layers:
   - Default
   - TransparentFX
