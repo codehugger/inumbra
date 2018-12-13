@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
         var angH = 0.0f;
         var angV = 0.0f;
 
-        if (Input.GetJoystickNames()[0].Contains("Xbox")) {
+        if (Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0].Contains("Xbox")) {
             angH = Input.GetAxis("XBoxRightH");
             angV = Input.GetAxis("XBoxRightV");
         } else {
