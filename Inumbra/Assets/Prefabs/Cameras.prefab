@@ -89,7 +89,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4493908864894508}
   - component: {fileID: 20397020086655464}
-  - component: {fileID: 81481497984789346}
   m_Layer: 0
   m_Name: Canvas Camera
   m_TagString: MainCamera
@@ -145,7 +144,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322586136616750}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 59.71341, y: -34.954445, z: -72.46245}
+  m_LocalPosition: {x: -63.886597, y: -30.054445, z: -72.46245}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4764386037736956}
@@ -159,7 +158,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1040412609778886}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 54.67607, y: -34.95462, z: -72.46245}
+  m_LocalPosition: {x: -63.886597, y: -30.054445, z: -72.46245}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4306946491860358}
@@ -315,13 +314,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &81481497984789346
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1480751248795436}
-  m_Enabled: 1
 --- !u!81 &81777011265260730
 AudioListener:
   m_ObjectHideFlags: 1
