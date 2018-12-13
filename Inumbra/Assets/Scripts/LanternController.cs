@@ -50,6 +50,7 @@ public class LanternController : MonoBehaviour {
 			currentDamage = 0;
 			rayIntensity = 0;
 			lightCollider.SetActive(false);
+			audio.Stop();
 			return;
 		} else {
 			lightCollider.SetActive(true);
