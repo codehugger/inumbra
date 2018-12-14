@@ -53,14 +53,17 @@ public class GameStateController : MonoBehaviour {
 		gauge = GameObject.FindGameObjectWithTag("FuelGauge");
 		compass = GameObject.FindGameObjectWithTag("Compass");
 		player = GameObject.FindGameObjectWithTag("Player");
-		enemies = GameObject.FindGameObjectsWithTag("Shade");
+		// enemies = GameObject.FindGameObjectsWithTag("Shade");
 
 		// Text display
-		textUI = text.GetComponentInChildren<TextMeshProUGUI>();
-		talk = "";
-		background.SetActive(false);
-		text.SetActive(false);
+		if (text != null) {
+			textUI = text.GetComponentInChildren<TextMeshProUGUI>();
+			text.SetActive(false);
+		}
 
+		if (background != false) { background.SetActive(false); }
+
+		talk = "";
 		playerHitPoints = startingPlayerHitPoints;
 	}
 
@@ -115,6 +118,7 @@ public class GameStateController : MonoBehaviour {
 		if (gauge != null) { gauge.SetActive(false); }
 		if (compass != null) { compass.SetActive(false); }
 		if (player != null) { player.GetComponent<PlayerMovement>().enabled = false; }
+		enemies = GameObject.FindGameObjectsWithTag("Shade");
 		foreach (var enemy in enemies) {
 			var spriteRenderer = enemy.GetComponent<EnemyController>();
 			spriteRenderer.enabled = false;
