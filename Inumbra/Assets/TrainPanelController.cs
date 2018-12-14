@@ -33,9 +33,9 @@ public class TrainPanelController : MonoBehaviour {
         if (other.gameObject.tag == "Player" ) {
             if (PlayerPrefs.GetFloat("FuelLevel") >= requiredFuel) {
                 helpText.gameObject.SetActive(true);
-                helpText.SetText("Press E to start train");
+                helpText.SetText("Press X to start train");
 
-                if (Input.GetKeyDown(KeyCode.E)) {
+                if (Input.GetButton("Submit")) {
                     StartCoroutine(EndScene());
                     GameObject.FindGameObjectWithTag("Train").GetComponent<TrainMovement>().doorsClosed = true;
                 }
