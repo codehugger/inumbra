@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShowCutscene : MonoBehaviour {
 
 	public TextAsset cutSceneTextFile;
+	public bool disableAfterTrigger = true;
 
 	// Use this for initialization
 	void Start () {
@@ -17,10 +18,11 @@ public class ShowCutscene : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log(other.gameObject.tag);
 		if (other.gameObject.tag == "Player") {
 			PlayerPrefs.SetString("Talk", cutSceneTextFile.text);
-			gameObject.SetActive(false);
+			if (disableAfterTrigger) {
+				gameObject.SetActive(false);
+			}
 		}
 	}
 }
