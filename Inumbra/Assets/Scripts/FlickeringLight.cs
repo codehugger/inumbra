@@ -25,16 +25,20 @@ public class FlickeringLight : MonoBehaviour {
 	}
 
 	void Update() {
-		bool sprintEnabled = Input.GetKey(KeyCode.LeftShift) || Input.GetAxis("XBox L2") > 0.2 || Input.GetButton("Fire2");
-		float in_x = Input.GetAxis("Horizontal");
-        float in_y = Input.GetAxis("Vertical");
-		bool isMoving = (in_x != 0 || in_y != 0);
-		bool isSprinting = isMoving && sprintEnabled;
+		// bool sprintEnabled = Input.GetKey(KeyCode.LeftShift) || Input.GetAxis("XBox L2") > 0.2 || Input.GetButton("Fire2");
+		// float in_x = Input.GetAxis("Horizontal");
+        // float in_y = Input.GetAxis("Vertical");
+		// bool isMoving = (in_x != 0 || in_y != 0);
+		// bool isSprinting = isMoving && sprintEnabled;
 
-		if (!StopFlickering && !_flickering && !isSprinting)
-		{
-			StartCoroutine(DoFlicker());
-		}
+		// if (isSprinting) {
+		// 	StopAllCoroutines();
+		// }
+
+		// if (!StopFlickering && !_flickering)
+		// {
+		// 	StartCoroutine(DoFlicker());
+		// }
 	}
 
 	private IEnumerator DoFlicker() {
