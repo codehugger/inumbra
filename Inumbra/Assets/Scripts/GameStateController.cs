@@ -108,41 +108,43 @@ public class GameStateController : MonoBehaviour {
 
 	IEnumerator DisplayText() {
 		//yield return new WaitForSeconds(1);
+		if (talk != ""){
+			textUI.SetText(talk);
+			displayingText = true;
+			background.SetActive(true);
+			text.SetActive(true);
 
-		textUI.SetText(talk);
-		displayingText = true;
-		background.SetActive(true);
-		text.SetActive(true);
+			// Disable game objects (pause)
+			if (gauge != null) { gauge.SetActive(false); }
+			if (compass != null) { compass.SetActive(false); }
+			if (player != null) { player.GetComponent<PlayerMovement>().enabled = false; }
+			enemies = GameObject.FindGameObjectsWithTag("Shade");
+			foreach (var enemy in enemies) {
+				var spriteRenderer = enemy.GetComponent<EnemyController>();
+				spriteRenderer.enabled = false;
+			}
 
-		// Disable game objects (pause)
-		if (gauge != null) { gauge.SetActive(false); }
-		if (compass != null) { compass.SetActive(false); }
-		if (player != null) { player.GetComponent<PlayerMovement>().enabled = false; }
-		enemies = GameObject.FindGameObjectsWithTag("Shade");
-		foreach (var enemy in enemies) {
-			var spriteRenderer = enemy.GetComponent<EnemyController>();
-			spriteRenderer.enabled = false;
-		}
+			yield return new WaitForSeconds(3);
+			continueText.SetActive(true);
+			while(!Input.anyKeyDown){
+				yield return null;
+			}
 
-		yield return new WaitForSeconds(3);
-		continueText.SetActive(true);
-		while(!Input.anyKeyDown){
-			yield return null;
-		}
+			// Disable text related components
+			background.SetActive(false);
+			text.SetActive(false);
+			displayingText = false;
+			continueText.SetActive(false);
 
-		// Disable text related components
-		background.SetActive(false);
-		text.SetActive(false);
-		displayingText = false;
-		continueText.SetActive(false);
-
-		// Enable game objects (resume)
-		if (gauge != null) { gauge.SetActive(true); }
-		if (compass != null) { compass.SetActive(true); }
-		if (player != null) { player.GetComponent<PlayerMovement>().enabled = true; }
-		foreach (var enemy in enemies) {
-			var spriteRenderer = enemy.GetComponent<EnemyController>();
-			spriteRenderer.enabled = true;
+			// Enable game objects (resume)
+			if (gauge != null) { gauge.SetActive(true); }
+			if (compass != null) { compass.SetActive(true); }
+			if (player != null) { player.GetComponent<PlayerMovement>().enabled = true; }
+			foreach (var enemy in enemies) {
+				var spriteRenderer = enemy.GetComponent<EnemyController>();
+				spriteRenderer.enabled = true;
+			}
+			PlayerPrefs.SetString("Talk", "");
 		}
 	}
 }
