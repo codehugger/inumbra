@@ -22,7 +22,7 @@ public class PlayerHealthController : MonoBehaviour {
 	void Update () {
 		if (currentHitPoints <= 0) {
 			GetComponentInChildren<SpriteRenderer>().color = Color.grey;
-			GetComponent<PlayerMovement>().enabled = false;
+			//GetComponent<PlayerMovement>().enabled = false;
 		}
 		else if (currentHitPoints < hitPoints) {
 			GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(initialColor, Color.red, currentHitPoints / hitPoints);

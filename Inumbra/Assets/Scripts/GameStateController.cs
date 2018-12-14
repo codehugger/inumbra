@@ -56,11 +56,14 @@ public class GameStateController : MonoBehaviour {
 		enemies = GameObject.FindGameObjectsWithTag("Shade");
 
 		// Text display
-		textUI = text.GetComponentInChildren<TextMeshProUGUI>();
-		talk = "";
-		background.SetActive(false);
-		text.SetActive(false);
+		if (text != null) {
+			textUI = text.GetComponentInChildren<TextMeshProUGUI>();
+			text.SetActive(false);
+		}
 
+		if (background != false) { background.SetActive(false); }
+
+		talk = "";
 		playerHitPoints = startingPlayerHitPoints;
 	}
 

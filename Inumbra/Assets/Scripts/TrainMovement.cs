@@ -68,7 +68,7 @@ public class TrainMovement : MonoBehaviour {
     }
 
     private void OnTriggerExit2D() {
-        if (currentSpeed <= 0) {
+        if (currentSpeed <= 0 && helpText != null) {
             helpText.gameObject.SetActive(false);
         }
     }

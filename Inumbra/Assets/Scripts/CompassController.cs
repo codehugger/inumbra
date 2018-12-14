@@ -15,9 +15,11 @@ public class CompassController : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag("Player");
 		train = GameObject.FindGameObjectWithTag("Train");
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
+		if (player == null || train == null) { return; }
+
 		if (Vector3.Distance(player.transform.position, train.transform.position) > showAfterDistance){
 			SpriteRenderer[] list = gameObject.GetComponentsInChildren<SpriteRenderer>();
 			foreach (SpriteRenderer l in list)
