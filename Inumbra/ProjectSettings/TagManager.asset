@@ -17,6 +17,7 @@ TagManager:
   - FuelGauge
   - FuelNeedle
   - Compass
+  - TrainDoors
   layers:
   - Default
   - TransparentFX
@@ -59,4 +60,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2365709923
+    locked: 0
+  - name: UpperEnvironment
+    uniqueID: 1001275457
     locked: 0
