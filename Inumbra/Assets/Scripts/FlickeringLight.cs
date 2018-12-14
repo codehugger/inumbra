@@ -4,8 +4,8 @@ using UnityEngine;
 using Light2D;
 
 public class FlickeringLight : MonoBehaviour {
-	public float MaxReduction = 0.05f;
-	public float MaxIncrease = 0.05f;
+	public float MaxReduction = 0.2f;
+	public float MaxIncrease = 0.2f;
 	public float RateDamping = 0.1f;
 	public float Strength = 300;
 	public bool StopFlickering;
@@ -22,7 +22,6 @@ public class FlickeringLight : MonoBehaviour {
 			return;
 		}
 		_baseIntensity = _lightSource.Color.a;
-		StartCoroutine(DoFlicker());
 	}
 
 	void Update() {
@@ -30,9 +29,9 @@ public class FlickeringLight : MonoBehaviour {
 		float in_x = Input.GetAxis("Horizontal");
         float in_y = Input.GetAxis("Vertical");
 		bool isMoving = (in_x != 0 || in_y != 0);
-		StopFlickering = (sprintEnabled && isMoving);
+		bool isSprinting = isMoving && sprintEnabled;
 
-		if (!StopFlickering && !_flickering)
+		if (!StopFlickering && !_flickering && !isSprinting)
 		{
 			StartCoroutine(DoFlicker());
 		}
