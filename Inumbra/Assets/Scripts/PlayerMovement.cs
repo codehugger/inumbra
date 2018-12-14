@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
         bool sprintEnabled = Input.GetKey(KeyCode.LeftShift) || Input.GetAxis("XBox L2") > 0.2 || Input.GetButton("Fire2");
         var currentSpeed = speed;
 
-        Debug.Log(string.Format("Sprint Enabled: {0}", sprintEnabled));
+        // Debug.Log(string.Format("Sprint Enabled: {0}", sprintEnabled));
 
         if (sprintEnabled) {
             currentSpeed *= sprintMultiplier;
@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Calculate length of movement for animation state change
         float length = Vector3.Magnitude(new_pos - transform.position);
-        Debug.Log(length);
+        // Debug.Log(length);
         animator.SetFloat("Speed", length);
         transform.position = new_pos;
 
