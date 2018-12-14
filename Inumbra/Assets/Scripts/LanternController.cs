@@ -30,16 +30,15 @@ public class LanternController : MonoBehaviour {
 	bool exitFocus = false;
 	bool soundDone = true;
 
-	AudioSource audio;
+	AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {
-		audio = GetComponent<AudioSource>();
+		audioSource = GetComponent<AudioSource>();
 	}
 
 	// Update is called once per frame
 	void Update () {
-
 		bool sprintEnabled = Input.GetKey(KeyCode.LeftShift) || Input.GetAxis("XBox L2") > 0.2 || Input.GetButton("Fire2");
 		float in_x = Input.GetAxis("Horizontal");
         float in_y = Input.GetAxis("Vertical");
@@ -50,7 +49,7 @@ public class LanternController : MonoBehaviour {
 			currentDamage = 0;
 			rayIntensity = 0;
 			lightCollider.SetActive(false);
-			audio.Stop();
+			audioSource.Stop();
 			return;
 		} else {
 			lightCollider.SetActive(true);
@@ -66,8 +65,8 @@ public class LanternController : MonoBehaviour {
 			lightVisual.GetComponent<LightSprite>().Color.a = Mathf.Lerp(cur_alpha, 0.8f, Time.deltaTime * speed/10);
 			if (!focusStarted){
 				focusStarted = true;
-				audio.clip = inAudio;
-				audio.loop = true;
+				audioSource.clip = inAudio;
+				audioSource.loop = true;
 				exitFocus = false;
 				StartCoroutine(PlayLanternSound());
 			}
@@ -79,8 +78,8 @@ public class LanternController : MonoBehaviour {
 			if (!exitFocus) {
 				focusStarted = false;
 				exitFocus = true;
-				audio.clip = outAudio;
-				audio.loop = false;
+				audioSource.clip = outAudio;
+				audioSource.loop = false;
 				StartCoroutine(PlayLanternSound());
 			}
 		}
@@ -113,8 +112,7 @@ public class LanternController : MonoBehaviour {
 	}
 
 	IEnumerator PlayLanternSound(){
-		audio.Play();
-		yield return new WaitForSeconds(audio.clip.length);
-		
+		audioSource.Play();
+		yield return new WaitForSeconds(audioSource.clip.length);
 	}
 }

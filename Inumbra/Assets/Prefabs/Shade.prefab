@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212581498031307792}
   - component: {fileID: 108382277915528542}
   - component: {fileID: 114170674042190000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1710104325539544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.19, y: -12.56, z: 0}
+  m_LocalPosition: {x: 24.9, y: -10.3, z: -1}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4354287110571922}
@@ -254,14 +254,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee26a65c9c434a441a80fbf31118527c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reactionDistance: 10
+  reactionDistance: 20
   attackDistanceFactor: 0.5
   attackSpeedMultiplier: 2
-  retreatSpeedMultiplier: 1.5
+  retreatSpeedMultiplier: 2
   movementSpeed: 2
   moveWhenIdle: 1
   hitPoints: 10
-  healingRate: 1
+  healingRate: 2
   damage: 10
   timeBetweenDirectionChanges: 3
   anim: {fileID: 95064645258083902}
