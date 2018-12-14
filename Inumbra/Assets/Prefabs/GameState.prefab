@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4540059302271734}
-  - component: {fileID: 114165647650570544}
   - component: {fileID: 114549396878877012}
   - component: {fileID: 82717556598032166}
   - component: {fileID: 114476268176771988}
@@ -139,19 +138,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &114165647650570544
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1747802157761248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a87067e6e712d42f3a9aff20019f2c05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 0}
-  background: {fileID: 0}
 --- !u!114 &114476268176771988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -164,9 +150,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingFuelLevel: 0
+  startingPlayerHitPoints: 30
   turnOnLantern: 1
   enemiesCanMove: 1
   wipeOnStart: 0
+  text: {fileID: 0}
+  continueText: {fileID: 0}
+  background: {fileID: 0}
+  healingRate: 1
+  playerHitPoints: 0
+  playerHitPointsChanged: 0
 --- !u!114 &114549396878877012
 MonoBehaviour:
   m_ObjectHideFlags: 1

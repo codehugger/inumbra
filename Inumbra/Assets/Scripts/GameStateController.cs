@@ -57,7 +57,7 @@ public class GameStateController : MonoBehaviour {
 
 		// Text display
 		textUI = text.GetComponentInChildren<TextMeshProUGUI>();
-		talkingText = PlayerPrefs.GetString("Talk");
+		talk = "";
 		background.SetActive(false);
 		text.SetActive(false);
 
@@ -106,17 +106,17 @@ public class GameStateController : MonoBehaviour {
 	IEnumerator DisplayText() {
 		//yield return new WaitForSeconds(1);
 
-		textUI.SetText(talkingText);
+		textUI.SetText(talk);
 		displayingText = true;
 		background.SetActive(true);
 		text.SetActive(true);
 
 		// Disable game objects (pause)
-		if (gauge != null) { gauge.GetComponent<SpriteRenderer>().enabled = false; }
-		if (compass != null) { compass.GetComponent<SpriteRenderer>().enabled = false; }
-		if (player != null) { player.GetComponent<SpriteRenderer>().enabled = false; }
+		if (gauge != null) { gauge.SetActive(false); }
+		if (compass != null) { compass.SetActive(false); }
+		if (player != null) { player.GetComponent<PlayerMovement>().enabled = false; }
 		foreach (var enemy in enemies) {
-			var spriteRenderer = enemy.GetComponent<SpriteRenderer>();
+			var spriteRenderer = enemy.GetComponent<EnemyController>();
 			spriteRenderer.enabled = false;
 		}
 
@@ -133,11 +133,11 @@ public class GameStateController : MonoBehaviour {
 		continueText.SetActive(false);
 
 		// Enable game objects (resume)
-		if (gauge != null) { gauge.GetComponent<SpriteRenderer>().enabled = true; }
-		if (compass != null) { compass.GetComponent<SpriteRenderer>().enabled = true; }
-		if (player != null) { player.GetComponent<SpriteRenderer>().enabled = true; }
+		if (gauge != null) { gauge.SetActive(true); }
+		if (compass != null) { compass.SetActive(true); }
+		if (player != null) { player.GetComponent<PlayerMovement>().enabled = true; }
 		foreach (var enemy in enemies) {
-			var spriteRenderer = enemy.GetComponent<SpriteRenderer>();
+			var spriteRenderer = enemy.GetComponent<EnemyController>();
 			spriteRenderer.enabled = true;
 		}
 	}
