@@ -7,6 +7,7 @@ public class LanternController : MonoBehaviour {
 
 	public GameObject lightCollider;
 	public GameObject lightVisual;
+	public GameObject lightAura;
 
 	public float maxRay = 25;
 	public float minRay = 5;
@@ -24,6 +25,7 @@ public class LanternController : MonoBehaviour {
 
 	Vector3 spotlightChangeVector = new Vector3(1, 0, 0);
 	Vector3 aoeChangeVector = new Vector3(0, 1, 0);
+	Vector3 auraChangeVector = new Vector3(1, 1, 0);
 
 	bool focusStarted = false;
 	bool inFocus = false;
@@ -32,9 +34,13 @@ public class LanternController : MonoBehaviour {
 
 	AudioSource audioSource;
 
+	// Aura control
+	Vector3 lightAuraOriginalScale;
+
 	// Use this for initialization
 	void Start () {
 		audioSource = GetComponent<AudioSource>();
+		lightAuraOriginalScale = lightAura.transform.localScale;
 	}
 
 	// Update is called once per frame
@@ -61,6 +67,7 @@ public class LanternController : MonoBehaviour {
 		if ((Input.GetButton("Fire1") || Input.GetAxis("XBox R2") > 0.2) && lightVisual.transform.localScale.x > minRay) {
 			lightVisual.transform.localScale -= spotlightChangeVector * Time.deltaTime * speed;
 			lightCollider.transform.localScale -= aoeChangeVector * Time.deltaTime * speed / 3;
+			lightAura.transform.localScale -= auraChangeVector * Time.deltaTime * speed / 2;
 			float cur_alpha = lightVisual.GetComponent<LightSprite>().Color.a;
 			lightVisual.GetComponent<LightSprite>().Color.a = Mathf.Lerp(cur_alpha, 0.8f, Time.deltaTime * speed/10);
 			if (!focusStarted){
@@ -73,6 +80,7 @@ public class LanternController : MonoBehaviour {
 		} else if (!Input.GetButton("Fire1") && Input.GetAxis("XBox R2") < 0.2 && lightVisual.transform.localScale.x < maxRay) {
 			lightVisual.transform.localScale += spotlightChangeVector * Time.deltaTime * speed * 3;
 			lightCollider.transform.localScale += aoeChangeVector * Time.deltaTime * speed;
+			lightAura.transform.localScale += auraChangeVector * Time.deltaTime * speed * 2;
 			float cur_alpha = lightVisual.GetComponent<LightSprite>().Color.a;
 			lightVisual.GetComponent<LightSprite>().Color.a = Mathf.Lerp(cur_alpha, -0.3f, Time.deltaTime * speed/10);
 			if (!exitFocus) {
@@ -102,6 +110,11 @@ public class LanternController : MonoBehaviour {
 			tmp.y = 1.8f;
 			lightCollider.transform.localScale = tmp;
 		}
+
+		lightAura.transform.localScale = new Vector3(
+			Mathf.Clamp(lightAura.transform.localScale.x, 0, lightAuraOriginalScale.x),
+			Mathf.Clamp(lightAura.transform.localScale.y, 0, lightAuraOriginalScale.y),
+			0);
 
 		float clamp_alpha = Mathf.Clamp(lightVisual.GetComponent<LightSprite>().Color.a, 0.3f, 0.8f);
 		lightVisual.GetComponent<LightSprite>().Color.a = clamp_alpha;
