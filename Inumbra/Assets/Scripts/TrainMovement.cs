@@ -41,11 +41,11 @@ public class TrainMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
         if (!inTrainScene) {
-            if(PlayerPrefs.GetInt("Fuel") > 0){
+            if(PlayerPrefs.GetInt("FuelLevel") == 1.0f){
                 startTrain.SetActive(true);
             }
         } else {
-            StartCoroutine(EndScene());
+            // StartCoroutine(EndScene());
             target = Vector2.up;
         }
         float step = currentSpeed * Time.deltaTime;
@@ -54,14 +54,14 @@ public class TrainMovement : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D other) {
         if (other.gameObject.tag == "Player" && currentSpeed <= 0) {
-            if (PlayerPrefs.GetInt("Fuel") > 0) {
+            if (PlayerPrefs.GetInt("FuelLevel") == 1.0f) {
                 helpText.gameObject.SetActive(true);
                 helpText.SetText("Press E to start train");
 
                 if (Input.GetKeyDown(KeyCode.E)) {
                     //PlayerPrefs.SetString("Talk", "THE END!");
                     currentSpeed = 1f;
-                    StartCoroutine(EndScene());
+                    // StartCoroutine(EndScene());
                 }
             }
         }

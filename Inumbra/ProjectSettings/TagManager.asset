@@ -16,6 +16,7 @@ TagManager:
   - SpotlightPlayer
   - FuelGauge
   - FuelNeedle
+  - Compass
   layers:
   - Default
   - TransparentFX

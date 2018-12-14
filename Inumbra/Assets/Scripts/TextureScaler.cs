@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TextureScaler : MonoBehaviour {
 
-
 	public int pixels = 128;
 	int initialHeight, initialWidth;
 	UnityEngine.UI.RawImage rawImage;
@@ -21,7 +20,7 @@ public class TextureScaler : MonoBehaviour {
 		renderTexture.height = (int) (ratio * pixels);
 		renderTexture.width = pixels;
     }
-	
+
 	// Update is called once per frame
 	void Update () {
 
