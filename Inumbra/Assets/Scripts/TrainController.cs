@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System;
 
-public class TrainControllerScript : MonoBehaviour {
+public class TrainController : MonoBehaviour {
 
 	private readonly int GRID_X = 7;
 	private readonly int GRID_Y = 4;
