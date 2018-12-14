@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 58231294451969090}
   - component: {fileID: 114848505706326332}
   m_Layer: 2
-  m_Name: Coal
+  m_Name: coal
   m_TagString: coal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
