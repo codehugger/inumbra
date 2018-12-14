@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 114774187844216804}
   m_Layer: 5
   m_Name: Needle
-  m_TagString: Untagged
+  m_TagString: FuelNeedle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,6 +139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4659682573214000}
+  - component: {fileID: 114754026851894174}
   m_Layer: 5
   m_Name: FuelGauge
   m_TagString: FuelGauge
@@ -420,7 +421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f472f73d48404528938858e291b9a02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pixels: 700
+  pixels: 250
 --- !u!114 &114640964889235550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -705,6 +706,19 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114754026851894174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1255758476816140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b8dc5f6d2a84d319f02811224ffcc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minAngle: 0
+  maxAngle: -120
 --- !u!114 &114774187844216804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1016,13 +1030,13 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1044406754745546}
-  m_LocalRotation: {x: -0, y: -0, z: -0.050000362, w: 0.9987492}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.00000071525574}
   m_LocalScale: {x: 0.082302175, y: 0.0769631, z: 0.082302175}
   m_Children: []
   m_Father: {fileID: 4659682573214000}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5.7320004}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.03, y: -0.58}

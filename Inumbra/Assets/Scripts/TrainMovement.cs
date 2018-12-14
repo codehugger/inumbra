@@ -10,6 +10,9 @@ public class TrainMovement : MonoBehaviour {
     bool inTrainScene;
     float currentSpeed;
 
+    public bool doorsClosed = false;
+    public GameObject doors;
+
     public Vector2 target;
     public float speed;
 
@@ -50,6 +53,13 @@ public class TrainMovement : MonoBehaviour {
         }
         float step = currentSpeed * Time.deltaTime;
         transform.position = Vector2.MoveTowards(transform.position, target, step);
+        if (doors != null) {
+            if (doorsClosed) {
+                doors.SetActive(true);
+            } else {
+                doors.SetActive(false);
+            }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other) {
