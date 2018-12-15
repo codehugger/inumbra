@@ -259,7 +259,7 @@ MonoBehaviour:
   attackSpeedMultiplier: 2
   retreatSpeedMultiplier: 2
   movementSpeed: 2
-  moveWhenIdle: 1
+  moveWhenIdle: 0
   hitPoints: 10
   healingRate: 2
   damage: 10
