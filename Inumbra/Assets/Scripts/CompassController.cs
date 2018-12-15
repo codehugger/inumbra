@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class CompassController : MonoBehaviour {
 
 	public GameObject needle;
-	
+
 	GameObject player;
+
+	GameObject key;
 
 	int coalCount;
 	int oldCount = 1000;
@@ -17,6 +19,7 @@ public class CompassController : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag("Player");
 		coalCount = GameObject.FindGameObjectsWithTag("coal").Length;
+		key = GameObject.FindGameObjectWithTag("Key");
 	}
 
 	// Update is called once per frame
@@ -24,10 +27,18 @@ public class CompassController : MonoBehaviour {
 		GameObject[] coals = GameObject.FindGameObjectsWithTag("coal");
 		coalCount = coals.Length;
 		if (player == null || coalCount == 0) { 
-			Image[] list = gameObject.GetComponentsInChildren<Image>();
-			foreach (Image l in list)
-			{
-				l.enabled = false;
+			if (key == null) {
+				Image[] list = gameObject.GetComponentsInChildren<Image>();
+				foreach (Image l in list)
+				{
+					l.enabled = false;
+				}
+			} else {
+				needle.GetComponent<Image>().color = new Color(0, 1, 1, 1);
+				Vector3 key_rot = player.transform.position - key.transform.position;
+				float key_look_angle = Mathf.Atan2(key_rot.y, key_rot.x) * Mathf.Rad2Deg;
+				Quaternion key_new_rot = Quaternion.AngleAxis(key_look_angle, Vector3.forward);
+				needle.transform.rotation = key_new_rot;
 			}
 			return;
 		}
