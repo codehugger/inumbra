@@ -22,7 +22,7 @@ public class WorldMapController : MonoBehaviour {
 		string nextScene = PlayerPrefs.GetString("NextScene");
 		string currentScene = SceneManager.GetActiveScene().name;
 		switch(nextScene){
-			case "Forrest":
+			case "Forest":
 				if(!(currentScene == "Train")){
 					currentWorldMap = worldMapImage1;
 				}else{
@@ -44,7 +44,11 @@ public class WorldMapController : MonoBehaviour {
 				}
 				break;
 			default:
-				currentWorldMap = worldMapImage1;
+				if(currentScene == "City"){
+					currentWorldMap = worldMapImage7;
+				}else{
+					currentWorldMap = worldMapImage1;
+				}
 				break;
 		}
 	}
