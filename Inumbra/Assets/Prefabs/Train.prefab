@@ -4178,10 +4178,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f88d078d711074232b62bb743238c22e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorsClosed: 0
+  doorsClosed: 1
   doors: {fileID: 1168735412674944}
   target: {x: 0, y: 100000}
-  speed: 0
+  speed: 10
   fadeScreen: {fileID: 0}
   helpText: {fileID: 0}
   startTrain: {fileID: 0}
@@ -4368,7 +4368,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328c8341ab57ab7499ecc1633914e25e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldMapImage: {fileID: 0}
+  worldMapImage1: {fileID: 0}
+  worldMapImage2: {fileID: 0}
+  worldMapImage3: {fileID: 0}
+  worldMapImage4: {fileID: 0}
+  worldMapImage5: {fileID: 0}
+  worldMapImage6: {fileID: 0}
+  worldMapImage7: {fileID: 0}
 --- !u!114 &114192897287813288
 MonoBehaviour:
   m_ObjectHideFlags: 1
