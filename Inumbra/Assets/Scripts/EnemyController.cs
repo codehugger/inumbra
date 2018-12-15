@@ -10,10 +10,12 @@ public class EnemyController : MonoBehaviour {
 		follow = 1,
 		attack = 2,
 		retreat = 3,
-		idle = 4
+		idle = 4,
+		dead = 5
 	}
 
 	// public variables
+	public GameObject sprite;
 	public float reactionDistance = 10.0f;
 	[Range(0.01f, 1.0f)]
 	public float attackDistanceFactor = 0.5f;
@@ -30,6 +32,14 @@ public class EnemyController : MonoBehaviour {
 
 	public Animator anim;
 
+	public AudioClip idleSound;
+	public AudioClip[] followSounds;
+	public AudioClip[] attackSounds;
+	public AudioClip[] deathSounds;
+	public AudioClip[] retreatSounds;
+
+	public bool movementEnabled = true;
+
 	// private variables
 	private GameObject player;
 	bool takingDamage;
@@ -41,43 +51,68 @@ public class EnemyController : MonoBehaviour {
 	LanternController lantern;
 	float timeToChange = 0;
 	Vector2 direction;
-	bool dead = false;
 
 	ParticleSystem ps;
+	AudioSource audioSource;
+	bool playingActivitySound = false;
+	bool playingDamageSound = false;
+	AudioClip attackSound;
+	AudioClip followSound;
+	AudioClip retreatSound;
+	AudioClip deathSound;
+	bool handlingDeath = false;
 
 	void Start() {
 		player = GameObject.FindGameObjectWithTag("Player");
 		currentState = EnemyState.move;
 		currentHitPoints = hitPoints;
 		ps = gameObject.GetComponent<ParticleSystem>();
+		audioSource = GetComponent<AudioSource>();
 		RotateRandom();
+
+		// Pick a random distortion at startup
+		audioSource.pitch = Random.Range(0.5f, 1f);
+
+		// Pick a damage sound for this shadow
+		attackSound = attackSounds[Random.Range(0, attackSounds.Length)];
+		followSound = followSounds[Random.Range(0, followSounds.Length)];
+		retreatSound = retreatSounds[Random.Range(0, retreatSounds.Length)];
+		deathSound = deathSounds[Random.Range(0, deathSounds.Length)];
 	}
 
 	void Update() {
-		if (takingDamage){
-			if (Random.Range(-0.2f, 1f) < lantern.rayIntensity){
-				ps.Emit(1);
-			}
-		}
-		// We don't do anything when dead
-		if (dead) { return; }
-
 		UpdateState();
 
-		if (takingDamage) { HandleDamage(); }
-		else { Regenerate(); }
+		if (currentState == EnemyState.dead && !handlingDeath) {
+			StartCoroutine(HandleDeath(true));
+		} else {
+			if (takingDamage) {
+				if (Random.Range(-0.2f, 1f) < lantern.rayIntensity){
+					ps.Emit(1);
+				}
+				HandleDamage();
+			} else {
+				Regenerate();
+			}
 
-		UpdateSpeed();
-		UpdateRotation();
+			UpdateSpeed();
+			UpdateRotation();
+
+			if (movementEnabled) {
+				Vector3 old_position = transform.position;
+				transform.position += (transform.up * currentSpeed);
+				float length = Vector3.Magnitude(transform.position - old_position);
+				anim.SetFloat("Speed", length);
+			}
+
+			if (stateChanged) {
+				StartCoroutine(PlayActivitySound());
+			}
+		}
 
 		// Debug.Log(string.Format("Speed: {0}", currentSpeed));
 		// Debug.Log(string.Format("Hit Points: {0}", currentHitPoints));
 		// Debug.Log(string.Format("State: {0}", currentState));
-
-		Vector3 old_position = transform.position;
-		transform.position += (transform.up * currentSpeed);
-		float length = Vector3.Magnitude(transform.position - old_position);
-        anim.SetFloat("Speed", length);
 	}
 
 	void UpdateState() {
@@ -87,9 +122,11 @@ public class EnemyController : MonoBehaviour {
 		var playerDistance = Vector2.Distance(player.transform.position, transform.position);
 
 		// player out of reach => move
-		if (playerDistance > reactionDistance) {
+		if (currentHitPoints <= 0) {
+			currentState = EnemyState.dead;
+		} else if (playerDistance > reactionDistance) {
 			if (moveWhenIdle) {
-			currentState = EnemyState.move;
+				currentState = EnemyState.move;
 			} else {
 				currentState = EnemyState.idle;
 			}
@@ -108,7 +145,12 @@ public class EnemyController : MonoBehaviour {
 		}
 
 		// keep track of state updates
-		if (oldState != currentState) { stateChanged = true; }
+		if (oldState != currentState) {
+			stateChanged = true;
+			StopCoroutine("PlayActivitySound");
+			audioSource.Stop();
+			StartCoroutine(PlayActivitySound());
+		}
 	}
 
 	void UpdateRotation() {
@@ -154,13 +196,8 @@ public class EnemyController : MonoBehaviour {
 
 	void HandleDamage() {
 		// use the lantern damage and time factor to produce damage per second
-		if (lantern != null) {
+		if (lantern != null && !handlingDeath) {
 			currentHitPoints -= Time.deltaTime * lantern.currentDamage;
-		}
-
-		if (currentHitPoints <= 0) {
-			dead = true;
-			StartCoroutine(HandleDeath());
 		}
 	}
 
@@ -178,7 +215,7 @@ public class EnemyController : MonoBehaviour {
 		}
 		if (collider.gameObject.tag == "Player") {
 			collider.gameObject.GetComponent<PlayerHealthController>().TakeDamage(damage);
-			StartCoroutine(HandleDeath());
+			StartCoroutine(HandleDeath(false));
 		}
 	}
 
@@ -189,9 +226,35 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
-	IEnumerator HandleDeath() {
-		yield return new WaitForSeconds(0.1f);
-		Destroy(gameObject);
+	IEnumerator HandleDeath(bool withSound) {
+		if (!handlingDeath) {
+			handlingDeath = true;
+			sprite.SetActive(false);
+			StopCoroutine("PlayActivitySound");
+			ps.Stop(true);
+			audioSource.Stop();
+			if (withSound) { audioSource.PlayOneShot(deathSound); }
+			yield return new WaitForSeconds(deathSound.length);
+			Destroy(gameObject);
+		}
+	}
+
+	IEnumerator PlayActivitySound() {
+		switch (currentState) {
+			case EnemyState.follow:
+			audioSource.PlayOneShot(followSound);
+			yield return new WaitForSeconds(followSound.length);
+			break;
+			case EnemyState.attack:
+			audioSource.PlayOneShot(attackSound);
+			yield return new WaitForSeconds(attackSound.length);
+			break;
+			case EnemyState.idle:
+			case EnemyState.move:
+			audioSource.PlayOneShot(idleSound);
+			yield return new WaitForSeconds(idleSound.length);
+			break;
+		}
 	}
 
 	void RotateRandom() {

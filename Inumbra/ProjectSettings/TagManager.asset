@@ -18,6 +18,7 @@ TagManager:
   - FuelNeedle
   - Compass
   - TrainDoors
+  - Aura
   layers:
   - Default
   - TransparentFX

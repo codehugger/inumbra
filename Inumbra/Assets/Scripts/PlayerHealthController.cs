@@ -5,34 +5,67 @@ using UnityEngine;
 
 public class PlayerHealthController : MonoBehaviour {
 
+	enum PlayerHealthState
+	{
+		alive = 1,
+		damaged = 2,
+		dead = 3,
+	}
+
 	public float healingRate = 1;
+
+	public AudioClip damageSound;
+	public AudioClip heartbeatSound;
+	public AudioClip deathSound;
 
 	float hitPoints;
 	float currentHitPoints;
 	Color initialColor;
+	PlayerHealthState currentState;
+	AudioSource audioSource;
+
+	bool playingHeartbeatSound = false;
 
 	// Use this for initialization
 	void Start () {
-		hitPoints = PlayerPrefs.GetFloat("PlayerHitPoints", 30.0f);
+		currentState = PlayerHealthState.alive;
+		hitPoints = PlayerPrefs.GetFloat("InitialHitPoints", 30.0f);
 		currentHitPoints = hitPoints;
 		initialColor = GetComponentInChildren<SpriteRenderer>().color;
+
+		audioSource = GetComponent<AudioSource>();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (currentHitPoints <= 0) {
+		UpdateState();
+
+		if (currentState == PlayerHealthState.dead) {
 			GetComponentInChildren<SpriteRenderer>().color = Color.grey;
-			//GetComponent<PlayerMovement>().enabled = false;
+			GetComponent<PlayerMovement>().enabled = false;
 		}
-		else if (currentHitPoints < hitPoints) {
-			GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(initialColor, Color.red, currentHitPoints / hitPoints);
+		else if (currentState == PlayerHealthState.damaged) {
+			GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(initialColor, Color.red, 1 - currentHitPoints / hitPoints);
+			Regenerate();
 		} else {
 			GetComponentInChildren<SpriteRenderer>().color = initialColor;
 		}
 
-		PlayerPrefs.SetFloat("PlayerHitPoints", currentHitPoints);
+		if (currentHitPoints < hitPoints) {
+			StartCoroutine(PlayHeartbeatSound());
+		}
 
-		Regenerate();
+		PlayerPrefs.SetFloat("CurrentHitPoints", currentHitPoints);
+	}
+
+	void UpdateState() {
+		if (currentHitPoints <= 0) {
+			currentState = PlayerHealthState.dead;
+		} else if (currentHitPoints < hitPoints) {
+			currentState = PlayerHealthState.damaged;
+		} else {
+			currentState = PlayerHealthState.alive;
+		}
 	}
 
 	void Regenerate() {
@@ -43,7 +76,18 @@ public class PlayerHealthController : MonoBehaviour {
 		}
 	}
 
+	IEnumerator PlayHeartbeatSound() {
+		if (!playingHeartbeatSound) {
+			playingHeartbeatSound = true;
+			audioSource.PlayOneShot(heartbeatSound);
+			yield return new WaitForSeconds(heartbeatSound.length);
+			playingHeartbeatSound = false;
+		}
+	}
+
 	public void TakeDamage(float damage) {
 		currentHitPoints -= damage;
+
+		audioSource.PlayOneShot(damageSound);
 	}
 }

@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4354287110571922}
   - component: {fileID: 212581498031307792}
-  - component: {fileID: 108382277915528542}
   - component: {fileID: 114170674042190000}
   m_Layer: 8
   m_Name: Sprite
@@ -43,6 +42,7 @@ GameObject:
   - component: {fileID: 199252331311621660}
   - component: {fileID: 198932785560060784}
   - component: {fileID: 95064645258083902}
+  - component: {fileID: 170490308927246430}
   m_Layer: 0
   m_Name: Shade
   m_TagString: Shade
@@ -70,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1710104325539544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.9, y: -10.3, z: -1}
+  m_LocalPosition: {x: 23.6, y: -20.55, z: -1}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4354287110571922}
@@ -206,43 +206,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!108 &108382277915528542
-Light:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1397895022164632}
-  m_Enabled: 1
-  serializedVersion: 8
-  m_Type: 2
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 2
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
 --- !u!114 &114088907320016266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -254,17 +217,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee26a65c9c434a441a80fbf31118527c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 1397895022164632}
   reactionDistance: 20
   attackDistanceFactor: 0.5
-  attackSpeedMultiplier: 2
-  retreatSpeedMultiplier: 2
+  attackSpeedMultiplier: 3
+  retreatSpeedMultiplier: 3
   movementSpeed: 2
   moveWhenIdle: 1
   hitPoints: 10
-  healingRate: 2
+  healingRate: 1
   damage: 10
   timeBetweenDirectionChanges: 3
   anim: {fileID: 95064645258083902}
+  idleSound: {fileID: 8300000, guid: a2f355d1cbee34c05a63e03016f4b717, type: 3}
+  followSounds:
+  - {fileID: 8300000, guid: 31f0c1921845e4fb397271ea2793bafa, type: 3}
+  - {fileID: 8300000, guid: 6828665f738be4577b06ac17f1734001, type: 3}
+  - {fileID: 8300000, guid: 93c7b5e9f5c864cf3a5e1ae51f938f40, type: 3}
+  attackSounds:
+  - {fileID: 8300000, guid: 284b6653775b5429da891cd800630ce0, type: 3}
+  deathSounds:
+  - {fileID: 8300000, guid: 8d0c3ccf72f86407084705878f6227d6, type: 3}
+  - {fileID: 8300000, guid: 1abbfbecf5223448686469ddd08bcc2c, type: 3}
+  retreatSounds:
+  - {fileID: 8300000, guid: 44e4571a72a2e46b993b7c5cb60caa57, type: 3}
+  - {fileID: 8300000, guid: 6b786799471244a78a92a2bae2e0c362, type: 3}
+  movementEnabled: 0
 --- !u!114 &114170674042190000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -280,6 +258,14 @@ MonoBehaviour:
   AdditiveColor: {r: 0, g: 0, b: 0, a: 0}
   Material: {fileID: 2100000, guid: 0a8c132f813f5514b9f5b48ff3956482, type: 2}
   LightObstacleScale: 1
+--- !u!170 &170490308927246430
+AudioDistortionFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1710104325539544}
+  m_Enabled: 1
+  m_DistortionLevel: 0.5
 --- !u!198 &198932785560060784
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -466,7 +452,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.8584906, g: 0.36623776, b: 0, a: 1}
+      maxColor: {r: 1, g: 0.7434756, b: 0.3066038, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

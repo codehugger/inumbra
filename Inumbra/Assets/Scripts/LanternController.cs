@@ -17,6 +17,9 @@ public class LanternController : MonoBehaviour {
 	public float minAuraLevel = 0.2f;
 	public float maxAuraLevel = 0.5f;
 
+	public AudioClip lanternFocusSound;
+	public AudioClip lanternUnfocusSound;
+
 	[HideInInspector]
 	public float currentDamage = 0.0f;
 
@@ -30,6 +33,9 @@ public class LanternController : MonoBehaviour {
 	Vector3 auraScale;
 	Vector3 spotlightScale;
 	Vector3 aoeScale;
+	bool focusStarted = false;
+	bool exitFocus = false;
+	AudioSource audioSource;
 
 	void Start() {
 		spotlightSprite = lanternSpotlight.GetComponent<LightSprite>();
@@ -43,6 +49,8 @@ public class LanternController : MonoBehaviour {
 		// Set initial light level
 		currentSpotlightLevel = minSpotlightLevel;
 		currentAuraLevel = maxAuraLevel;
+
+		audioSource = GetComponent<AudioSource>();
 	}
 
 	void Update() {
@@ -53,12 +61,26 @@ public class LanternController : MonoBehaviour {
 		bool isRunning = sprintEnabled && isMoving;
 
 		// Increase light level
-		if ((Input.GetButton("Fire1") || Input.GetAxis("XBox R2") > 0.2)) {
+		if ((Input.GetButton("Fire1") || Input.GetAxis("XBox R2") > 0.2) && !isRunning) {
 			currentSpotlightLevel += focusSpeed * Time.deltaTime;
 			currentAuraLevel -= focusSpeed * Time.deltaTime;
+			if (!focusStarted) {
+				focusStarted = true;
+				audioSource.clip = lanternFocusSound;
+				audioSource.loop = true;
+				exitFocus = false;
+				StartCoroutine(PlayLanternSound());
+			}
 		} else {
 			currentSpotlightLevel = minSpotlightLevel;
 			currentAuraLevel = maxAuraLevel;
+			if (!exitFocus) {
+				focusStarted = false;
+				exitFocus = true;
+				audioSource.clip = lanternUnfocusSound;
+				audioSource.loop = false;
+				StartCoroutine(PlayLanternSound());
+			}
 		}
 
 		if (isRunning) {
@@ -74,16 +96,21 @@ public class LanternController : MonoBehaviour {
 		currentAuraLevel = Mathf.Clamp(currentAuraLevel, minAuraLevel, maxAuraLevel);
 
 		// Set intensity of lantern "raygun"
-		rayIntensity = Mathf.Clamp(1 - (currentSpotlightLevel - minSpotlightLevel) / (maxSpotlightLevel - minSpotlightLevel), 0.01f, 1.0f);
+		rayIntensity = Mathf.Clamp((currentSpotlightLevel - minSpotlightLevel) / (maxSpotlightLevel - minSpotlightLevel), 0.01f, 1.0f);
 		currentDamage = rayIntensity * damagePerSecond;
 
 		// Set the scale of the lights
-		lanternAura.transform.localScale = auraScale * Mathf.Clamp(rayIntensity, minAuraScale, 1.0f);
-		lanternSpotlight.transform.localScale = new Vector3(spotlightScale.x * Mathf.Clamp(rayIntensity, minSpotlightScale, 1.0f), spotlightScale.y, 0);
+		lanternAura.transform.localScale = auraScale * Mathf.Clamp(1 - rayIntensity, minAuraScale, 1.0f);
+		lanternSpotlight.transform.localScale = new Vector3(spotlightScale.x * Mathf.Clamp(1 - rayIntensity, minSpotlightScale, 1.0f), spotlightScale.y, 0);
 		lanternAreaOfEffect.transform.localScale = new Vector3(aoeScale.x, aoeScale.y * Mathf.Clamp(rayIntensity, minSpotlightScale, 1.0f), 0);
 
 		// Assign alpha color
 		spotlightSprite.Color.a = currentSpotlightLevel;
 		auraSprite.Color.a = currentAuraLevel;
+	}
+
+	IEnumerator PlayLanternSound(){
+		audioSource.Play();
+		yield return new WaitForSeconds(audioSource.clip.length);
 	}
 }

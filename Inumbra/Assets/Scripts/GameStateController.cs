@@ -44,7 +44,7 @@ public class GameStateController : MonoBehaviour {
 	void Start () {
 		if (wipeOnStart) { PlayerPrefs.DeleteAll(); }
 		PlayerPrefs.SetFloat("FuelLevel", startingFuelLevel);
-		PlayerPrefs.SetFloat("PlayerHitPoints", startingPlayerHitPoints);
+		PlayerPrefs.SetFloat("InitialHitPoints", startingPlayerHitPoints);
 		PlayerPrefs.SetInt("EnemiesCanMove", enemiesCanMove ? 1 : 0);
 		PlayerPrefs.SetInt("TurnOnLanter", turnOnLantern ? 1 : 0);
 		PlayerPrefs.SetString("Talk", "");
@@ -75,14 +75,17 @@ public class GameStateController : MonoBehaviour {
 	}
 
 	void HandleChanges() {
+		// Record current state
 		var tempFuelLevel = PlayerPrefs.GetFloat("FuelLevel", 0.0f);
 		var tempTalk = PlayerPrefs.GetString("Talk", "");
-		var tempPlayerHitPoints = PlayerPrefs.GetFloat("PlayerHealth", 0.0f);
+		var tempPlayerHitPoints = PlayerPrefs.GetFloat("CurrentHitPoints", 0.0f);
 
+		// Compare current state to previous state
 		fuelLevelChanged = tempFuelLevel != fuelLevel;
 		talkChanged = talk != tempTalk;
 		playerHitPointsChanged = playerHitPoints != tempPlayerHitPoints;
 
+		// Update current state
 		fuelLevel = tempFuelLevel;
 		talk = tempTalk;
 		playerHitPoints = tempPlayerHitPoints;
@@ -97,53 +100,70 @@ public class GameStateController : MonoBehaviour {
 
 	void HandlePlayerDeath() {
 		if (playerHitPoints <= 0) {
-			// StartCoroutine(ReloadOnDeath());
+			StartCoroutine(ReloadOnDeath());
 		}
 	}
 
+	void EnemiesEnabled(bool enabled) {
+		enemies = GameObject.FindGameObjectsWithTag("Shade");
+		foreach (var enemy in enemies) {
+			var enemyController = enemy.GetComponent<EnemyController>();
+			enemyController.enabled = enabled;
+		}
+	}
+
+	void UIEnabled(bool enabled) {
+		if (gauge != null) { gauge.SetActive(enabled); }
+		if (compass != null) { compass.SetActive(enabled); }
+		if (player != null) { player.GetComponent<PlayerMovement>().enabled = enabled; }
+	}
+
+	void TextEnabled(bool enabled) {
+		displayingText = enabled;
+		background.SetActive(enabled);
+		text.SetActive(enabled);
+	}
+
 	IEnumerator ReloadOnDeath(){
-		yield return new WaitForSeconds(3);
+		UIEnabled(false);
+		EnemiesEnabled(false);
+		textUI.SetText("You're dead!");
+		TextEnabled(true);
+		yield return new WaitForSeconds(1f);
+		continueText.SetActive(true);
+		while(!Input.anyKeyDown){
+			yield return null;
+		}
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	IEnumerator DisplayText() {
 		//yield return new WaitForSeconds(1);
 		if (talk != ""){
-			textUI.SetText(talk);
-			displayingText = true;
-			background.SetActive(true);
-			text.SetActive(true);
-
 			// Disable game objects (pause)
-			if (gauge != null) { gauge.SetActive(false); }
-			if (compass != null) { compass.SetActive(false); }
-			if (player != null) { player.GetComponent<PlayerMovement>().enabled = false; }
-			enemies = GameObject.FindGameObjectsWithTag("Shade");
-			foreach (var enemy in enemies) {
-				var spriteRenderer = enemy.GetComponent<EnemyController>();
-				spriteRenderer.enabled = false;
-			}
+			UIEnabled(false);
+			EnemiesEnabled(false);
 
-			yield return new WaitForSeconds(3);
+			// Display the text
+			textUI.SetText(talk);
+			TextEnabled(true);
+
+			// Wait for user to acknowledge text
+			yield return new WaitForSeconds(1.5f);
 			continueText.SetActive(true);
 			while(!Input.anyKeyDown){
 				yield return null;
 			}
 
 			// Disable text related components
-			background.SetActive(false);
-			text.SetActive(false);
-			displayingText = false;
+			TextEnabled(false);
 			continueText.SetActive(false);
 
 			// Enable game objects (resume)
-			if (gauge != null) { gauge.SetActive(true); }
-			if (compass != null) { compass.SetActive(true); }
-			if (player != null) { player.GetComponent<PlayerMovement>().enabled = true; }
-			foreach (var enemy in enemies) {
-				var spriteRenderer = enemy.GetComponent<EnemyController>();
-				spriteRenderer.enabled = true;
-			}
+			UIEnabled(true);
+			EnemiesEnabled(true);
+
+			// Set a clean slate for future talking
 			PlayerPrefs.SetString("Talk", "");
 		}
 	}
