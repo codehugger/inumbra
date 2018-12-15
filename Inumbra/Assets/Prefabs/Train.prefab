@@ -411,7 +411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1342922782872932
 GameObject:
   m_ObjectHideFlags: 1
@@ -1065,7 +1065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1756869704669418
 GameObject:
   m_ObjectHideFlags: 1
@@ -2765,7 +2765,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
 --- !u!33 &33435928701348880
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -4368,7 +4368,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328c8341ab57ab7499ecc1633914e25e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldMapImage: {fileID: 0}
+  worldMapImage1: {fileID: 0}
+  worldMapImage2: {fileID: 0}
+  worldMapImage3: {fileID: 0}
+  worldMapImage4: {fileID: 0}
+  worldMapImage5: {fileID: 0}
+  worldMapImage6: {fileID: 0}
+  worldMapImage7: {fileID: 0}
 --- !u!114 &114192897287813288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4658,7 +4664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Color: {r: 1, g: 1, b: 1, a: 0.5}
   Sprite: {fileID: 21300000, guid: 598b33f5951947c45b7882984e004277, type: 3}
-  SortingOrder: 0
+  SortingOrder: 1
   Material: {fileID: 2100000, guid: 5d8645bc2e5501a4ebd138db5aa609bd, type: 2}
   LightOrigin: {x: 0, y: 0, z: 1}
   Shape: 0

@@ -48,6 +48,7 @@ public class GameStateController : MonoBehaviour {
 		PlayerPrefs.SetInt("EnemiesCanMove", enemiesCanMove ? 1 : 0);
 		PlayerPrefs.SetInt("TurnOnLanter", turnOnLantern ? 1 : 0);
 		PlayerPrefs.SetString("Talk", "");
+		PlayerPrefs.SetInt("HasKey", 0);
 
 		// Get the relevant game objects through tags
 		gauge = GameObject.FindGameObjectWithTag("FuelGauge");
