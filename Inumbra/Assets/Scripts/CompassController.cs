@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CompassController : MonoBehaviour {
 
@@ -21,14 +22,14 @@ public class CompassController : MonoBehaviour {
 		if (player == null || train == null) { return; }
 
 		if (Vector3.Distance(player.transform.position, train.transform.position) > showAfterDistance){
-			SpriteRenderer[] list = gameObject.GetComponentsInChildren<SpriteRenderer>();
-			foreach (SpriteRenderer l in list)
+			Image[] list = gameObject.GetComponentsInChildren<Image>();
+			foreach (Image l in list)
 			{
 				l.enabled = true;
 			}
 		} else {
-			SpriteRenderer[] list = gameObject.GetComponentsInChildren<SpriteRenderer>();
-			foreach (SpriteRenderer l in list)
+			Image[] list = gameObject.GetComponentsInChildren<Image>();
+			foreach (Image l in list)
 			{
 				l.enabled = false;
 			}
