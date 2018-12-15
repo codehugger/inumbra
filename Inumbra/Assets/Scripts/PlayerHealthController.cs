@@ -9,7 +9,8 @@ public class PlayerHealthController : MonoBehaviour {
 	{
 		alive = 1,
 		damaged = 2,
-		dead = 3,
+		regenerating = 3,
+		dead = 4,
 	}
 
 	public float healingRate = 1;
@@ -25,6 +26,7 @@ public class PlayerHealthController : MonoBehaviour {
 	AudioSource audioSource;
 
 	bool playingHeartbeatSound = false;
+	bool stateChanged = false;
 
 	// Use this for initialization
 	void Start () {
@@ -44,14 +46,14 @@ public class PlayerHealthController : MonoBehaviour {
 			GetComponentInChildren<SpriteRenderer>().color = Color.grey;
 			GetComponent<PlayerMovement>().enabled = false;
 		}
-		else if (currentState == PlayerHealthState.damaged) {
+		else if (currentState == PlayerHealthState.regenerating) {
 			GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(initialColor, Color.red, 1 - currentHitPoints / hitPoints);
 			Regenerate();
 		} else {
 			GetComponentInChildren<SpriteRenderer>().color = initialColor;
 		}
 
-		if (currentHitPoints < hitPoints) {
+		if (currentState == PlayerHealthState.regenerating && stateChanged) {
 			StartCoroutine(PlayHeartbeatSound());
 		}
 
@@ -59,13 +61,18 @@ public class PlayerHealthController : MonoBehaviour {
 	}
 
 	void UpdateState() {
+		stateChanged = false;
+		var previousState = currentState;
+
 		if (currentHitPoints <= 0) {
 			currentState = PlayerHealthState.dead;
 		} else if (currentHitPoints < hitPoints) {
-			currentState = PlayerHealthState.damaged;
+			currentState = PlayerHealthState.regenerating;
 		} else {
 			currentState = PlayerHealthState.alive;
 		}
+
+		if (previousState != currentState) { stateChanged = true; }
 	}
 
 	void Regenerate() {
@@ -87,7 +94,8 @@ public class PlayerHealthController : MonoBehaviour {
 
 	public void TakeDamage(float damage) {
 		currentHitPoints -= damage;
-
+		currentState = PlayerHealthState.damaged;
+		audioSource.Stop();
 		audioSource.PlayOneShot(damageSound);
 	}
 }
