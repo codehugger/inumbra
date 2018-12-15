@@ -6,32 +6,25 @@ public class RoofController : MonoBehaviour {
 
 	public GameObject roof;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    bool auraColliding = false;
+    bool lanternColliding = false;
+    bool playerColliding = false;
 
 	 private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Lantern" || other.gameObject.tag == "Player")
-        {
-        //hide roof
-        roof.SetActive(false);
-        }
-        
+        if (other.gameObject.tag == "Aura") { auraColliding = true; }
+        if (other.gameObject.tag == "Player") { playerColliding = true; }
+        if (other.gameObject.tag == "Lantern") { lanternColliding = true; }
+
+        if (playerColliding || auraColliding || lanternColliding ) { roof.SetActive(false); }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Lantern")
-        {
-        //show roof
-        roof.SetActive(true);
-        }
+        if (other.gameObject.tag == "Aura") { auraColliding = false; }
+        if (other.gameObject.tag == "Player") { playerColliding = false; }
+        if (other.gameObject.tag == "Lantern") { lanternColliding = false; }
+
+        if (!auraColliding && !playerColliding && !lanternColliding) { roof.SetActive(true); }
     }
 }
