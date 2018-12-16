@@ -1,13 +1,20 @@
-List of external files used for Inumbra - journey through the dark
+List of external resources used for creating “Inumbra - journey through the dark“
 
-Sprites:
-
-Sound:
-1. 
+Soundeffects & Music:
+- https://archive.org/
+- https://freesound.org/
 
 Assets:
-1.
-name: Light2D - GPU Lighting System
+1. Light2D - GPU Lighting System
 Author: Alexander Penkin
-url: https://assetstore.unity.com/packages/tools/particles-effects/light2d-gpu-lighting-system-30953
+https://assetstore.unity.com/packages/tools/particles-effects/light2d-gpu-lighting-system-30953
+
+2. Pixel-Canvas Effect
+introduced by Benedikt Thordarson
+
+3. CineMachine
+https://assetstore.unity.com/packages/essentials/cinemachine-79898
+
+4. Unity Postprocessing
+
 

@@ -21,6 +21,7 @@ TagManager:
   - Aura
   - Key
   - GameState
+  - her
   layers:
   - Default
   - TransparentFX
