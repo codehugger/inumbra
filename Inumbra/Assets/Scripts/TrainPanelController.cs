@@ -39,7 +39,7 @@ public class TrainPanelController : MonoBehaviour {
                 helpText.gameObject.SetActive(true);
                 helpText.SetText("Press X to start train");
 
-                if (Input.GetButton("Submit")) {
+                if (Input.GetButton("Submit") || Input.GetKey(KeyCode.X) || Input.GetButton("Jump")) {
                     StartCoroutine(EndScene());
                     GameObject.FindGameObjectWithTag("Train").GetComponent<TrainMovement>().doorsClosed = true;
                 }
