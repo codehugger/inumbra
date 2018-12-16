@@ -62,26 +62,26 @@ public class TrainMovement : MonoBehaviour {
         }
     }
 
-    private void OnTriggerStay2D(Collider2D other) {
-        if (other.gameObject.tag == "Player" && currentSpeed <= 0) {
-            if (PlayerPrefs.GetInt("FuelLevel") == 1.0f) {
-                helpText.gameObject.SetActive(true);
-                helpText.SetText("Press E to start train");
+    // private void OnTriggerStay2D(Collider2D other) {
+    //     if (other.gameObject.tag == "Player" && currentSpeed <= 0) {
+    //         if (PlayerPrefs.GetInt("FuelLevel") == 1.0f) {
+    //             helpText.gameObject.SetActive(true);
+    //             helpText.SetText("Press E to start train");
 
-                if (Input.GetKeyDown(KeyCode.E)) {
-                    //PlayerPrefs.SetString("Talk", "THE END!");
-                    currentSpeed = 1f;
-                    // StartCoroutine(EndScene());
-                }
-            }
-        }
-    }
+    //             if (Input.GetKeyDown(KeyCode.E)) {
+    //                 //PlayerPrefs.SetString("Talk", "THE END!");
+    //                 currentSpeed = 1f;
+    //                 // StartCoroutine(EndScene());
+    //             }
+    //         }
+    //     }
+    // }
 
-    private void OnTriggerExit2D() {
-        if (currentSpeed <= 0 && helpText != null) {
-            helpText.gameObject.SetActive(false);
-        }
-    }
+    // private void OnTriggerExit2D() {
+    //     if (currentSpeed <= 0 && helpText != null) {
+    //         helpText.gameObject.SetActive(false);
+    //     }
+    // }
 
     IEnumerator EndScene() {
 
