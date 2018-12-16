@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512703a275aa745678b32bd6c7971e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Alpha
+  sceneName: Tutorial
   firstText: {fileID: 2114513183}
   secondText: {fileID: 1023297170}
   transitionDuration: 0
@@ -409,7 +409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1023297169
 RectTransform:
   m_ObjectHideFlags: 0
@@ -449,8 +449,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: '... alone'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 562d045ca40c54db6a3678433b9f25c9, type: 2}
-  m_sharedMaterial: {fileID: 21881967484588980, guid: 562d045ca40c54db6a3678433b9f25c9,
+  m_fontAsset: {fileID: 11400000, guid: b8d129d5fea3a4c6d909d65a05f535de, type: 2}
+  m_sharedMaterial: {fileID: 21209941389450474, guid: b8d129d5fea3a4c6d909d65a05f535de,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -475,8 +475,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -493,7 +493,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -678,8 +678,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: somewhere ...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 562d045ca40c54db6a3678433b9f25c9, type: 2}
-  m_sharedMaterial: {fileID: 21881967484588980, guid: 562d045ca40c54db6a3678433b9f25c9,
+  m_fontAsset: {fileID: 11400000, guid: b8d129d5fea3a4c6d909d65a05f535de, type: 2}
+  m_sharedMaterial: {fileID: 21209941389450474, guid: b8d129d5fea3a4c6d909d65a05f535de,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -704,8 +704,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -722,7 +722,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0

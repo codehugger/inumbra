@@ -225,8 +225,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2d7ab3a6600894fe69fc1e6b2b1fc013, type: 2}
-  m_sharedMaterial: {fileID: 21390095251419842, guid: 2d7ab3a6600894fe69fc1e6b2b1fc013,
+  m_fontAsset: {fileID: 11400000, guid: b8d129d5fea3a4c6d909d65a05f535de, type: 2}
+  m_sharedMaterial: {fileID: 21209941389450474, guid: b8d129d5fea3a4c6d909d65a05f535de,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -435,8 +435,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Play
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2d7ab3a6600894fe69fc1e6b2b1fc013, type: 2}
-  m_sharedMaterial: {fileID: 21390095251419842, guid: 2d7ab3a6600894fe69fc1e6b2b1fc013,
+  m_fontAsset: {fileID: 11400000, guid: b8d129d5fea3a4c6d909d65a05f535de, type: 2}
+  m_sharedMaterial: {fileID: 21209941389450474, guid: b8d129d5fea3a4c6d909d65a05f535de,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -708,8 +708,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Exit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2d7ab3a6600894fe69fc1e6b2b1fc013, type: 2}
-  m_sharedMaterial: {fileID: 21390095251419842, guid: 2d7ab3a6600894fe69fc1e6b2b1fc013,
+  m_fontAsset: {fileID: 11400000, guid: b8d129d5fea3a4c6d909d65a05f535de, type: 2}
+  m_sharedMaterial: {fileID: 21209941389450474, guid: b8d129d5fea3a4c6d909d65a05f535de,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1071,10 +1071,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: journey through the dark
+  m_text: Journey through the Dark
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2d7ab3a6600894fe69fc1e6b2b1fc013, type: 2}
-  m_sharedMaterial: {fileID: 21390095251419842, guid: 2d7ab3a6600894fe69fc1e6b2b1fc013,
+  m_fontAsset: {fileID: 11400000, guid: b8d129d5fea3a4c6d909d65a05f535de, type: 2}
+  m_sharedMaterial: {fileID: 21209941389450474, guid: b8d129d5fea3a4c6d909d65a05f535de,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
