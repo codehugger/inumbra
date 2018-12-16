@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50656247180158280}
   - component: {fileID: 114610065171205898}
   - component: {fileID: 82000674993999772}
-  - component: {fileID: 60028672916262532}
+  - component: {fileID: 58837880945550600}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -282,7 +282,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1117870103548448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7, y: -10.2, z: 0}
+  m_LocalPosition: {x: 0.1, y: -11.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4052991997845624}
@@ -427,11 +427,11 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0017975979, y: -0.0033455086}
   serializedVersion: 2
-  m_Radius: 0.64000005
---- !u!60 &60028672916262532
-PolygonCollider2D:
+  m_Radius: 0.37035766
+--- !u!58 &58837880945550600
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -442,30 +442,9 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.4355831, y: 0.61026764}
-      - {x: -0.44669724, y: 0.4465704}
-      - {x: -1.1932716, y: -0.42068863}
-      - {x: -1.0004425, y: -0.8777933}
-      - {x: -0.2505703, y: -2.0084686}
-      - {x: 0.24707603, y: -1.6569328}
-      - {x: 0.064582825, y: -1.1182566}
-      - {x: -0.22120094, y: -0.8702669}
-      - {x: 0.35853004, y: -0.87779427}
-      - {x: 0.44346237, y: -0.44894028}
-      - {x: 0.8023243, y: 0.023968697}
-      - {x: 0.8135052, y: 0.30901718}
+  m_Offset: {x: 0.06349611, y: 0.23366046}
+  serializedVersion: 2
+  m_Radius: 1.0567782
 --- !u!60 &60749547795411980
 PolygonCollider2D:
   m_ObjectHideFlags: 1

@@ -90,6 +90,10 @@ public class GameStateController : MonoBehaviour {
 		fuelLevel = tempFuelLevel;
 		talk = tempTalk;
 		playerHitPoints = tempPlayerHitPoints;
+
+		if (fuelLevelChanged && fuelLevel == 1) {
+			PlayerPrefs.SetString("Talk", "that's enough coal, I should get back to the train.");
+		}
 	}
 
 	void HandleTextDisplay() {
