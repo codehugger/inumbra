@@ -57,7 +57,7 @@ public class TrainPanelController : MonoBehaviour {
         
     }
 
-        IEnumerator EndScene() {
+    IEnumerator EndScene() {
 
         // if in the train scene wait until time on train has passed
         if (inTrainScene) {
