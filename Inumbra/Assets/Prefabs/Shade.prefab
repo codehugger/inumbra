@@ -294,12 +294,12 @@ MonoBehaviour:
   reactionDistance: 20
   attackDistanceFactor: 0.5
   attackSpeedMultiplier: 3
-  retreatSpeedMultiplier: 3
+  retreatSpeedMultiplier: 4
   movementSpeed: 2
   moveWhenIdle: 0
   hitPoints: 10
   healingRate: 1
-  damage: 10
+  damage: 20
   timeBetweenDirectionChanges: 3
   anim: {fileID: 95064645258083902}
   idleSound: {fileID: 8300000, guid: a2f355d1cbee34c05a63e03016f4b717, type: 3}
