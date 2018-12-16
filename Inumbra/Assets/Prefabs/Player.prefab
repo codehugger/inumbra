@@ -285,7 +285,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1117870103548448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.43, y: -18.68, z: 0}
+  m_LocalPosition: {x: 0.32, y: -10.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4052991997845624}
@@ -916,7 +916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravelStepSound: {fileID: 8300000, guid: fc098dcf342ea47cfb5b67d92f3b24a7, type: 3}
   grassStepSound: {fileID: 8300000, guid: d3c00ea57e7e8489ab71ccc049792be7, type: 3}
-  woodenFloorStepSound: {fileID: 8300000, guid: 03a8dcbfc1d1848739ce74ace0efb297,
+  woodenFloorStepSound: {fileID: 8300000, guid: 06162de72552e4b5bacbe560bbb52950,
     type: 3}
   stoneStepSound: {fileID: 8300000, guid: a20e976f024e649aaa5b90a5e6a34659, type: 3}
   dirtStepSound: {fileID: 8300000, guid: 79bedb3a98e9540608041f56cff6c268, type: 3}

@@ -19,7 +19,6 @@ public class GroundMaterial : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.tag == "Player" && gameStateController) {
-			Debug.Log("Player Collision Enter");
 			previousMaterialName = gameStateController.groundMaterial;
 			gameStateController.groundMaterial = materialName;
 		}
@@ -27,7 +26,6 @@ public class GroundMaterial : MonoBehaviour {
 
 	void OnTriggerExit2D(Collider2D other) {
 		if (other.tag == "Player" && gameStateController) {
-			Debug.Log("Player Collision Exit");
 			gameStateController.groundMaterial = previousMaterialName;
 		}
 	}

@@ -25,7 +25,6 @@ public class CoalController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D other) {
-		Debug.Log("Collision with COAL");
 		if (other.transform.tag == "Player" && fuelLevel < 1.0f) {
 			CoalPickup();
 		} else {

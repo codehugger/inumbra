@@ -26,8 +26,6 @@ public class FootSteps : MonoBehaviour {
 			audioSource.volume = Random.Range(0.8f, 1.0f);
 			AudioClip stepSound;
 
-			Debug.Log(gameStateController.groundMaterial);
-
 			switch(gameStateController.groundMaterial) {
 				case "grass":
 				stepSound = grassStepSound;
