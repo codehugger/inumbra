@@ -87,6 +87,7 @@ public class LanternController : MonoBehaviour {
 			currentSpotlightLevel = minSpotlightLevel;
 			currentAuraLevel = minAuraLevel;
 			lanternSpotlight.SetActive(false);
+			lanternAreaOfEffect.SetActive(false);
 		} else {
 			lanternSpotlight.SetActive(true);
 		}
@@ -100,7 +101,11 @@ public class LanternController : MonoBehaviour {
 		currentDamage = rayIntensity * damagePerSecond;
 
 		// Set the scale of the lights
-		lanternAura.transform.localScale = auraScale * Mathf.Clamp(1 - rayIntensity, minAuraScale, 1.0f);
+		if (isRunning) {
+			lanternAura.transform.localScale = auraScale * minAuraScale;
+		} else {
+			lanternAura.transform.localScale = auraScale * Mathf.Clamp(1 - rayIntensity, minAuraScale, 1.0f);
+		}
 		lanternSpotlight.transform.localScale = new Vector3(spotlightScale.x * Mathf.Clamp(1 - rayIntensity, minSpotlightScale, 1.0f), spotlightScale.y, 0);
 		lanternAreaOfEffect.transform.localScale = new Vector3(aoeScale.x, aoeScale.y * Mathf.Clamp(rayIntensity, minSpotlightScale, 1.0f), 0);
 
