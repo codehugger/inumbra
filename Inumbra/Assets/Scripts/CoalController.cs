@@ -43,7 +43,9 @@ public class CoalController : MonoBehaviour {
 	void CoalPickup() {
 		PlayerPrefs.SetFloat("FuelLevel", fuelLevel += fuelAmount);
 		spriteRenderer.enabled = false;
-		audioSource.PlayOneShot(coalPickupSound);
+		if (audioSource) {
+			audioSource.PlayOneShot(coalPickupSound);
+		}
 		Destroy(gameObject);
 	}
 }

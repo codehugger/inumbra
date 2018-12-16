@@ -276,9 +276,11 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	private void OnDrawGizmos(){
-   		UnityEditor.Handles.color = Color.green;
-		UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, reactionDistance);
-		UnityEditor.Handles.color = Color.red;
-		UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, reactionDistance * attackDistanceFactor);
+		#if UNITY_EDITOR
+			UnityEditor.Handles.color = Color.green;
+			UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, reactionDistance);
+			UnityEditor.Handles.color = Color.red;
+			UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, reactionDistance * attackDistanceFactor);
+		#endif
 	}
 }
