@@ -1,0 +1,13 @@
+List of external files used for Inumbra - journey through the dark
+
+Sprites:
+
+Sound:
+1. 
+
+Assets:
+1.
+name: Light2D - GPU Lighting System
+Author: Alexander Penkin
+url: https://assetstore.unity.com/packages/tools/particles-effects/light2d-gpu-lighting-system-30953
+
