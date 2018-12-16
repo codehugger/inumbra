@@ -7,9 +7,11 @@ public class EndGameController : MonoBehaviour {
 
 	public TextAsset cutSceneTextFile;
 
+	AudioSource audioSource;
+
 	// Use this for initialization
 	void Start () {
-		
+		audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -20,12 +22,18 @@ public class EndGameController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.tag == "Player") {
 			PlayerPrefs.SetString("Talk", cutSceneTextFile.text);
+			StartCoroutine(FoundHer());
 			StartCoroutine(LoadCredits());
 		}
 	}
 
+	IEnumerator FoundHer() {
+		yield return new WaitForSeconds(2f);
+		audioSource.Play();
+	}
+
 	IEnumerator LoadCredits() {
-		yield return new WaitForSeconds(4f);
+		yield return new WaitForSeconds(5f);
 		SceneManager.LoadScene("Credits");
 	}
 }
