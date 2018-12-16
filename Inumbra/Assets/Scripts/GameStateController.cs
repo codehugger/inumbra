@@ -39,13 +39,16 @@ public class GameStateController : MonoBehaviour {
 	// Fuel management
 	float fuelLevel = 0.0f;
 	bool fuelLevelChanged = false;
+	bool playerDead = false;
+	bool handlingPlayerDeath = false;
 	public string groundMaterial = "gravel";
 
 	// Use this for initialization
-	void Start () {
+	void OnEnable() {
 		if (wipeOnStart) { PlayerPrefs.DeleteAll(); }
 		PlayerPrefs.SetFloat("FuelLevel", startingFuelLevel);
 		PlayerPrefs.SetFloat("InitialHitPoints", startingPlayerHitPoints);
+		PlayerPrefs.SetFloat("CurrentHitPoints", startingPlayerHitPoints);
 		PlayerPrefs.SetInt("EnemiesCanMove", enemiesCanMove ? 1 : 0);
 		PlayerPrefs.SetInt("TurnOnLanter", turnOnLantern ? 1 : 0);
 		PlayerPrefs.SetString("Talk", "");
@@ -67,12 +70,13 @@ public class GameStateController : MonoBehaviour {
 
 		talk = "";
 		playerHitPoints = startingPlayerHitPoints;
+		handlingPlayerDeath = false;
 	}
 
 	// Update is called once per frame
 	void Update () {
+		//HandleTextDisplay();
 		HandleChanges();
-		HandleTextDisplay();
 		HandlePlayerDeath();
 	}
 
@@ -99,13 +103,13 @@ public class GameStateController : MonoBehaviour {
 
 	void HandleTextDisplay() {
 		if (!talkChanged) { return; }
-		if (textUI != null && talkChanged && !displayingText) {
+		if (textUI != null && talkChanged && !displayingText && !handlingPlayerDeath) {
 			StartCoroutine(DisplayText());
 		}
 	}
 
 	void HandlePlayerDeath() {
-		if (playerHitPoints <= 0) {
+		if (playerHitPoints <= 0 && !handlingPlayerDeath) {
 			StartCoroutine(ReloadOnDeath());
 		}
 	}
@@ -134,16 +138,21 @@ public class GameStateController : MonoBehaviour {
 	}
 
 	IEnumerator ReloadOnDeath(){
-		UIEnabled(false);
-		EnemiesEnabled(false);
-		textUI.SetText("You're dead!");
-		TextEnabled(true);
-		yield return new WaitForSeconds(1f);
-		continueText.SetActive(true);
-		while(!Input.anyKeyDown){
-			yield return null;
+		if (!handlingPlayerDeath) {
+			handlingPlayerDeath = true;
+			Debug.Log("Reloading on death");
+			textUI.SetText("You're dead!");
+			UIEnabled(false);
+			EnemiesEnabled(false);
+			TextEnabled(true);
+			yield return new WaitForSeconds(1f);
+			continueText.SetActive(true);
+			while(!Input.anyKeyDown){
+				yield return null;
+			}
+			textUI.SetText("");
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
 		}
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	IEnumerator DisplayText() {
