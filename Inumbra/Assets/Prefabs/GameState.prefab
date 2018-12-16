@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3015dc251084e2991fc2b7c2e35901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingFuelLevel: 1
+  startingFuelLevel: 0
   startingPlayerHitPoints: 30
   turnOnLantern: 0
   enemiesCanMove: 1

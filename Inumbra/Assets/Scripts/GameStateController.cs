@@ -92,7 +92,7 @@ public class GameStateController : MonoBehaviour {
 		talk = tempTalk;
 		playerHitPoints = tempPlayerHitPoints;
 
-		if (fuelLevelChanged && fuelLevel == 1) {
+		if (fuelLevelChanged && fuelLevel == 1 && SceneManager.GetActiveScene().name != "Train") {
 			PlayerPrefs.SetString("Talk", "that's enough coal, I should get back to the train.");
 		}
 	}
