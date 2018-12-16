@@ -9,6 +9,7 @@ public class LoadMenuController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Cursor.visible = false;
 		StartCoroutine(LoadMenu());
 	}
 	
