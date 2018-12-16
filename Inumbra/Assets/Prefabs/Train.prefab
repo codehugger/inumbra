@@ -4184,8 +4184,8 @@ MonoBehaviour:
   speed: 0
   fadeScreen: {fileID: 0}
   helpText: {fileID: 0}
-  startTrain: {fileID: 0}
-  nameOfNextScene: Tutorial
+  startTrain: {fileID: 1269280396080200}
+  nameOfNextScene: 
   useTrainScene: 1
   fadeOutTime: 5
   timeOnTrain: 10

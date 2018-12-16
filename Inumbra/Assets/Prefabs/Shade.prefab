@@ -101,7 +101,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1710104325539544}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 139.14229, y: 108.8656, z: -8.395672}
+  m_LocalPosition: {x: -90.3, y: -17.1, z: -1}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4354287110571922}
@@ -305,16 +305,12 @@ MonoBehaviour:
   idleSound: {fileID: 8300000, guid: a2f355d1cbee34c05a63e03016f4b717, type: 3}
   followSounds:
   - {fileID: 8300000, guid: 31f0c1921845e4fb397271ea2793bafa, type: 3}
-  - {fileID: 8300000, guid: 6828665f738be4577b06ac17f1734001, type: 3}
-  - {fileID: 8300000, guid: 93c7b5e9f5c864cf3a5e1ae51f938f40, type: 3}
   attackSounds:
   - {fileID: 8300000, guid: 284b6653775b5429da891cd800630ce0, type: 3}
   deathSounds:
-  - {fileID: 8300000, guid: 8d0c3ccf72f86407084705878f6227d6, type: 3}
   - {fileID: 8300000, guid: 1abbfbecf5223448686469ddd08bcc2c, type: 3}
   retreatSounds:
   - {fileID: 8300000, guid: 44e4571a72a2e46b993b7c5cb60caa57, type: 3}
-  - {fileID: 8300000, guid: 6b786799471244a78a92a2bae2e0c362, type: 3}
   movementEnabled: 1
 --- !u!114 &114507545400895588
 MonoBehaviour:
@@ -4910,7 +4906,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -4965,7 +4961,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: b4c73e5daeda9421386d2f6eae78ddc5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
