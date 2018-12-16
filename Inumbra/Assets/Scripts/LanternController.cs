@@ -90,6 +90,7 @@ public class LanternController : MonoBehaviour {
 			lanternAreaOfEffect.SetActive(false);
 		} else {
 			lanternSpotlight.SetActive(true);
+			lanternAreaOfEffect.SetActive(true);
 		}
 
 		// Make sure we never go out of bounds with the light level
