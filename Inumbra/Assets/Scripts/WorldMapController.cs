@@ -36,7 +36,7 @@ public class WorldMapController : MonoBehaviour {
 					currentWorldMap = worldMapImage4;
 				}
 				break;
-			case "City":
+			case "Town":
 				if(!(currentScene == "Train")){
 					currentWorldMap = worldMapImage5;
 				}else{
@@ -44,7 +44,7 @@ public class WorldMapController : MonoBehaviour {
 				}
 				break;
 			default:
-				if(currentScene == "City"){
+				if(currentScene == "Town"){
 					currentWorldMap = worldMapImage7;
 				}else{
 					currentWorldMap = worldMapImage1;
