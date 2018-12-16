@@ -30,7 +30,6 @@ public class TrainPanelController : MonoBehaviour {
 	void Start () {
         Cursor.visible = false;
         inTrainScene = SceneManager.GetActiveScene().name == "Train";
-        PlayerPrefs.SetString("NextScene", nameOfNextScene);
 
         if (inTrainScene) {
             currentMusicTrack = trainMusic[Random.Range(0, trainMusic.Length)];
@@ -39,6 +38,8 @@ public class TrainPanelController : MonoBehaviour {
             audioSource.PlayOneShot(currentMusicTrack);
 
             StartCoroutine(FuelMeterDecrease());
+        } else {
+            PlayerPrefs.SetString("NextScene", nameOfNextScene);
         }
 
         currentLevel = PlayerPrefs.GetFloat("FuelLevel");
