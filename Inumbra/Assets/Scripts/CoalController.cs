@@ -14,13 +14,21 @@ public class CoalController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.FindGameObjectWithTag("Player");
-		audioSource = player.GetComponent<AudioSource>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
+		player = GameObject.FindGameObjectWithTag("Player");
+		if (player) {
+			audioSource = player.GetComponent<AudioSource>();
+		}
 	}
 
 	// Update is called once per frame
 	void Update () {
+		if (player == null) {
+			player = GameObject.FindGameObjectWithTag("Player");
+			if (audioSource) {
+				audioSource = player.GetComponent<AudioSource>();
+			}
+		}
 		fuelLevel = PlayerPrefs.GetFloat("FuelLevel", 0.0f);
 	}
 
