@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
+    path: Assets/Scenes/Alpha.unity
+    guid: dc47f2296eeba423db3fa1c7dd33391b
+  - enabled: 0
     path: Assets/Scenes/Main.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
@@ -15,8 +18,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Intro.unity
     guid: 1285658bec9bb4540bcf5a0fdca8f1b9
   - enabled: 1
-    path: Assets/Scenes/Alpha.unity
-    guid: dc47f2296eeba423db3fa1c7dd33391b
+    path: Assets/Scenes/Tutorial.unity
+    guid: b6c806089d1014557b0a172a1a426ce3
+  - enabled: 1
+    path: Assets/Scenes/Forest.unity
+    guid: 3672541bfb47443749ec4b0869fe61f0
+  - enabled: 1
+    path: Assets/Scenes/Wasteland.unity
+    guid: ff2bfb58bf336e84a9d2d273afa02e8c
   - enabled: 1
     path: Assets/Scenes/Town.unity
     guid: 45a2a2e87e7a24b78a0b29bae0c9b5fd
