@@ -24,6 +24,8 @@ public class TrainPanelController : MonoBehaviour {
     AudioSource audioSource;
 
     bool inTrainScene;
+    float timer;
+    float currentLevel;
 
 	// Use this for initialization
 	void Start () {
@@ -36,14 +38,24 @@ public class TrainPanelController : MonoBehaviour {
             audioSource.PlayOneShot(trainTrackSound);
             audioSource.PlayOneShot(currentMusicTrack);
         }
+
+        currentLevel = PlayerPrefs.GetFloat("FuelLevel");
+
+        timer = Time.time;
 	}
 
 	// Update is called once per frame
 	void Update () {
+        timer += Time.deltaTime;
 
+        // normalized = (x-min(x))/(max(x)-min(x))
+        if (inTrainScene) {
+            currentLevel = Mathf.Clamp(1 - (timer) / (timeOnTrain + fadeOutTime), 0, 1);
+            PlayerPrefs.SetFloat("FuelLevel", currentLevel);
+        }
 	}
 
-	  private void OnTriggerStay2D(Collider2D other) {
+	private void OnTriggerStay2D(Collider2D other) {
         if (other.gameObject.tag == "Player" ) {
             if (inTrainScene) {
                 StartCoroutine(EndScene());
