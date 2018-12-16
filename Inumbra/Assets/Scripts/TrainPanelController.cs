@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(AudioSource))]
 public class TrainPanelController : MonoBehaviour {
 
     [Range(0.01f, 1.0f)]
@@ -16,21 +17,25 @@ public class TrainPanelController : MonoBehaviour {
     public float fadeOutTime = 5.0f;
     public float timeOnTrain = 10.0f;
 
-    bool inTrainScene;
+    public AudioClip[] trainMusic;
+    public AudioClip trainTrackSound;
 
-    void Awake () {
-        inTrainScene = SceneManager.GetActiveScene().name == "Train";
-        if (inTrainScene) {
-            nameOfNextScene = PlayerPrefs.GetString("NextScene", "");
-        } else {
-            PlayerPrefs.SetString("NextScene", nameOfNextScene);
-        }
-    }
+    AudioClip currentMusicTrack;
+    AudioSource audioSource;
+
+    bool inTrainScene;
 
 	// Use this for initialization
 	void Start () {
         Cursor.visible = false;
-        // inTrainScene = SceneManager.GetActiveScene().name == "Train";
+        inTrainScene = SceneManager.GetActiveScene().name == "Train";
+
+        if (inTrainScene) {
+            currentMusicTrack = trainMusic[Random.Range(0, trainMusic.Length)];
+            audioSource = GetComponent<AudioSource>();
+            audioSource.PlayOneShot(trainTrackSound);
+            audioSource.PlayOneShot(currentMusicTrack);
+        }
 	}
 
 	// Update is called once per frame
@@ -40,7 +45,9 @@ public class TrainPanelController : MonoBehaviour {
 
 	  private void OnTriggerStay2D(Collider2D other) {
         if (other.gameObject.tag == "Player" ) {
-            if (PlayerPrefs.GetFloat("FuelLevel") >= requiredFuel) {
+            if (inTrainScene) {
+                StartCoroutine(EndScene());
+            } else if (PlayerPrefs.GetFloat("FuelLevel") >= requiredFuel) {
                 helpText.gameObject.SetActive(true);
                 helpText.SetText("Press X to start train");
 
@@ -52,12 +59,11 @@ public class TrainPanelController : MonoBehaviour {
         }
     }
 
-	 private void OnTriggerExit2D() {
+	private void OnTriggerExit2D() {
         if (helpText != null) { helpText.gameObject.SetActive(false); }
-
     }
 
-        IEnumerator EndScene() {
+    IEnumerator EndScene() {
 
         // if in the train scene wait until time on train has passed
         if (inTrainScene) {
@@ -76,9 +82,9 @@ public class TrainPanelController : MonoBehaviour {
             // in an intermediary place through PlayerPrefs
             // PlayerPrefs.SetString("NextScene", nameOfNextScene);
             SceneManager.LoadScene("Train");
-        } else if (SceneManager.GetActiveScene().name == "Train") {
+        } else if (inTrainScene) {
             // load the next scene stored in NextScene or reload current scene if not set
-            SceneManager.LoadScene(PlayerPrefs.GetString("NextScene", SceneManager.GetActiveScene().name));
+            SceneManager.LoadScene(PlayerPrefs.GetString("NextScene"));
         } else {
             // load next scene directly skipping the train intermediary scene
             SceneManager.LoadScene(nameOfNextScene);
