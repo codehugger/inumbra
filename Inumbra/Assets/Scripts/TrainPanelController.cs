@@ -19,13 +19,18 @@ public class TrainPanelController : MonoBehaviour {
     bool inTrainScene;
 
     void Awake () {
-        PlayerPrefs.SetString("NextScene", nameOfNextScene);
+        inTrainScene = SceneManager.GetActiveScene().name == "Train";
+        if (inTrainScene) {
+            nameOfNextScene = PlayerPrefs.GetString("NextScene", "");
+        } else {
+            PlayerPrefs.SetString("NextScene", nameOfNextScene);
+        }
     }
 
 	// Use this for initialization
 	void Start () {
         Cursor.visible = false;
-        inTrainScene = SceneManager.GetActiveScene().name == "Train";		
+        // inTrainScene = SceneManager.GetActiveScene().name == "Train";		
 	}
 	
 	// Update is called once per frame

@@ -13,7 +13,7 @@ public class TrainMovement : MonoBehaviour {
     public bool doorsClosed = false;
     public GameObject doors;
 
-    public Vector2 target;
+    public Vector3 target;
     public float speed;
 
     public GameObject fadeScreen;
@@ -36,9 +36,9 @@ public class TrainMovement : MonoBehaviour {
         currentSpeed = speed;
         inTrainScene = SceneManager.GetActiveScene().name == "Train";
 
-        if (inTrainScene) {
-            currentSpeed = 1.0f;
-        }
+        // if (inTrainScene) {
+        //     currentSpeed = 1.0f;
+        // }
     }
 
 	// Update is called once per frame
@@ -49,10 +49,10 @@ public class TrainMovement : MonoBehaviour {
             }
         } else {
             // StartCoroutine(EndScene());
-            target = Vector2.up;
+            target = Vector3.up;
         }
         float step = currentSpeed * Time.deltaTime;
-        transform.position = Vector2.MoveTowards(transform.position, target, step);
+        transform.position = Vector2.MoveTowards(transform.position, transform.position + target, step);
         if (doors != null) {
             if (doorsClosed) {
                 doors.SetActive(true);
