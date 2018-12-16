@@ -93,7 +93,7 @@ public class GameStateController : MonoBehaviour {
 		playerHitPoints = tempPlayerHitPoints;
 
 		if (fuelLevelChanged && fuelLevel == 1 && SceneManager.GetActiveScene().name != "Train") {
-			PlayerPrefs.SetString("Talk", "that's enough coal, I should get back to the train.");
+			PlayerPrefs.SetString("Talk", "That's enough coal, I should get back to the train.");
 		}
 	}
 
@@ -121,7 +121,7 @@ public class GameStateController : MonoBehaviour {
 	void UIEnabled(bool enabled) {
 		if (gauge != null) { gauge.SetActive(enabled); }
 		if (compass != null) { compass.SetActive(enabled); }
-		if (player != null) { 
+		if (player != null) {
 			player.GetComponent<PlayerMovement>().enabled = enabled;
 			GameObject.FindGameObjectWithTag("Legs").GetComponentInChildren<Animator>().enabled = enabled;
 		}

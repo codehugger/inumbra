@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class WorldMapController : MonoBehaviour {
 
-
 	public GameObject worldMapImage1;
 	public GameObject worldMapImage2;
 	public GameObject worldMapImage3;
@@ -15,13 +14,13 @@ public class WorldMapController : MonoBehaviour {
 	public GameObject worldMapImage7;
 
 	private GameObject currentWorldMap;
-	
-	
+
+
 	// Use this for initialization
 	void Start () {
 		string nextScene = PlayerPrefs.GetString("NextScene");
 		string currentScene = SceneManager.GetActiveScene().name;
-		switch(nextScene){
+		switch(nextScene) {
 			case "Forest":
 				if(!(currentScene == "Train")){
 					currentWorldMap = worldMapImage1;
@@ -52,10 +51,10 @@ public class WorldMapController : MonoBehaviour {
 				break;
 		}
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 	private void OnTriggerEnter2D(Collider2D other) {
 

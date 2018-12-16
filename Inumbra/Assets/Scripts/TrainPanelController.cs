@@ -30,28 +30,18 @@ public class TrainPanelController : MonoBehaviour {
 	void Start () {
         Cursor.visible = false;
         inTrainScene = SceneManager.GetActiveScene().name == "Train";
+        PlayerPrefs.SetString("NextScene", nameOfNextScene);
 
         if (inTrainScene) {
             currentMusicTrack = trainMusic[Random.Range(0, trainMusic.Length)];
             audioSource = GetComponent<AudioSource>();
             audioSource.PlayOneShot(trainTrackSound);
             audioSource.PlayOneShot(currentMusicTrack);
+
+            StartCoroutine(FuelMeterDecrease());
         }
 
         currentLevel = PlayerPrefs.GetFloat("FuelLevel");
-
-        timer = Time.time;
-	}
-
-	// Update is called once per frame
-	void Update () {
-        timer += Time.deltaTime;
-
-        // normalized = (x-min(x))/(max(x)-min(x))
-        if (inTrainScene) {
-            currentLevel = Mathf.Clamp(1 - (timer) / (timeOnTrain), 0, 1);
-            PlayerPrefs.SetFloat("FuelLevel", currentLevel);
-        }
 	}
 
 	private void OnTriggerStay2D(Collider2D other) {
@@ -63,7 +53,6 @@ public class TrainPanelController : MonoBehaviour {
                 helpText.SetText("Press X to start train");
 
                 if (Input.GetButton("Submit") || Input.GetKey(KeyCode.X) || Input.GetButton("Square")) {
-                    PlayerPrefs.SetString("NextScene", nameOfNextScene);
                     StartCoroutine(EndScene());
                     GameObject.FindGameObjectWithTag("Train").GetComponent<TrainMovement>().doorsClosed = true;
                 }
@@ -73,6 +62,18 @@ public class TrainPanelController : MonoBehaviour {
 
 	private void OnTriggerExit2D() {
         if (helpText != null) { helpText.gameObject.SetActive(false); }
+    }
+
+    IEnumerator FuelMeterDecrease() {
+        timer = 0;
+        if (inTrainScene) {
+            while (true) {
+                timer += Time.deltaTime;
+                currentLevel = Mathf.Clamp(1 - (timer) / (timeOnTrain), 0, 1);
+                PlayerPrefs.SetFloat("FuelLevel", currentLevel);
+                yield return null;
+            }
+        }
     }
 
     IEnumerator EndScene() {
