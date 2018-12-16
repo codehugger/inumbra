@@ -33,7 +33,7 @@ public class EndGameController : MonoBehaviour {
 	}
 
 	IEnumerator LoadCredits() {
-		yield return new WaitForSeconds(5f);
+		yield return new WaitForSeconds(7f);
 		SceneManager.LoadScene("Credits");
 	}
 }
