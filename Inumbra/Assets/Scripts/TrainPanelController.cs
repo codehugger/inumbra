@@ -18,6 +18,10 @@ public class TrainPanelController : MonoBehaviour {
 
     bool inTrainScene;
 
+    void Awake () {
+        PlayerPrefs.SetString("NextScene", nameOfNextScene);
+    }
+
 	// Use this for initialization
 	void Start () {
         Cursor.visible = false;
@@ -65,7 +69,7 @@ public class TrainPanelController : MonoBehaviour {
         if (useTrainScene) {
             // load train scene as the next scene and store the name of the next scene
             // in an intermediary place through PlayerPrefs
-            PlayerPrefs.SetString("NextScene", nameOfNextScene);
+            // PlayerPrefs.SetString("NextScene", nameOfNextScene);
             SceneManager.LoadScene("Train");
         } else if (SceneManager.GetActiveScene().name == "Train") {
             // load the next scene stored in NextScene or reload current scene if not set
