@@ -121,7 +121,10 @@ public class GameStateController : MonoBehaviour {
 	void UIEnabled(bool enabled) {
 		if (gauge != null) { gauge.SetActive(enabled); }
 		if (compass != null) { compass.SetActive(enabled); }
-		if (player != null) { player.GetComponent<PlayerMovement>().enabled = enabled; }
+		if (player != null) { 
+			player.GetComponent<PlayerMovement>().enabled = enabled;
+			GameObject.FindGameObjectWithTag("Legs").GetComponentInChildren<Animator>().enabled = enabled;
+		}
 	}
 
 	void TextEnabled(bool enabled) {
