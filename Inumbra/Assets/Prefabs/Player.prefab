@@ -125,6 +125,8 @@ GameObject:
   - component: {fileID: 4131569933315458}
   - component: {fileID: 212616727841752032}
   - component: {fileID: 95585945186936240}
+  - component: {fileID: 82517655415129226}
+  - component: {fileID: 114630805787848164}
   m_Layer: 0
   m_Name: Legs
   m_TagString: Untagged
@@ -159,6 +161,7 @@ GameObject:
   - component: {fileID: 23694157974407672}
   - component: {fileID: 33477492430441036}
   - component: {fileID: 58389472423501794}
+  - component: {fileID: 58599057683549064}
   m_Layer: 9
   m_Name: Aura
   m_TagString: Aura
@@ -282,7 +285,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1117870103548448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1, y: -11.2, z: 0}
+  m_LocalPosition: {x: 15.43, y: -18.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4052991997845624}
@@ -430,6 +433,21 @@ CircleCollider2D:
   m_Offset: {x: -0.0017975979, y: -0.0033455086}
   serializedVersion: 2
   m_Radius: 0.37035766
+--- !u!58 &58599057683549064
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1955969846608196}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.64000005
 --- !u!58 &58837880945550600
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -484,6 +502,101 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &82517655415129226
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1863033376267998}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -790,6 +903,23 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: de5ab9ad3921f493cb7d0f7624694c62, type: 3}
   heartbeatSound: {fileID: 8300000, guid: 7f868761af8744002873603be0904776, type: 3}
   deathSound: {fileID: 8300000, guid: 5f2c8e3bb6e594aa4b75b2c1e9b1ffd2, type: 3}
+--- !u!114 &114630805787848164
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1863033376267998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c242b14c139b74d8daef0a1a737d1436, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravelStepSound: {fileID: 8300000, guid: fc098dcf342ea47cfb5b67d92f3b24a7, type: 3}
+  grassStepSound: {fileID: 8300000, guid: d3c00ea57e7e8489ab71ccc049792be7, type: 3}
+  woodenFloorStepSound: {fileID: 8300000, guid: 03a8dcbfc1d1848739ce74ace0efb297,
+    type: 3}
+  stoneStepSound: {fileID: 8300000, guid: a20e976f024e649aaa5b90a5e6a34659, type: 3}
+  dirtStepSound: {fileID: 8300000, guid: 79bedb3a98e9540608041f56cff6c268, type: 3}
 --- !u!212 &212142281485745816
 SpriteRenderer:
   m_ObjectHideFlags: 1

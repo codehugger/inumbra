@@ -25,12 +25,12 @@ public class TrainPanelController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Cursor.visible = false;
-        inTrainScene = SceneManager.GetActiveScene().name == "Train";		
+        inTrainScene = SceneManager.GetActiveScene().name == "Train";
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
 	  private void OnTriggerStay2D(Collider2D other) {
@@ -48,8 +48,8 @@ public class TrainPanelController : MonoBehaviour {
     }
 
 	 private void OnTriggerExit2D() {
-        helpText.gameObject.SetActive(false);
-        
+        if (helpText != null) { helpText.gameObject.SetActive(false); }
+
     }
 
         IEnumerator EndScene() {
