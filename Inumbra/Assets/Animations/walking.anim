@@ -74,4 +74,12 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.2
+    functionName: FootStep
+    data: 
+    objectReferenceParameter: {fileID: 1117870103548448, guid: e086184f1a09ede43bd9e87a265bf7b5,
+      type: 2}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

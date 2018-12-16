@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c242b14c139b74d8daef0a1a737d1436
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - gravelStepSound: {fileID: 8300000, guid: 60aa5da18e94c4613b070bdb572bc968, type: 3}
+  - grassStepSound: {instanceID: 0}
+  - woodenFloorStepSound: {instanceID: 0}
+  - stoneStepSound: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

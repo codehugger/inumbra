@@ -49,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         float length = Vector3.Magnitude(new_pos - transform.position);
         // Debug.Log(length);
         animator.SetFloat("Speed", length);
+        animator.SetBool("Running", sprintEnabled);
         transform.position = new_pos;
 
         Vector3 dir;
