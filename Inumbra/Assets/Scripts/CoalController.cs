@@ -28,6 +28,8 @@ public class CoalController : MonoBehaviour {
 		Debug.Log("Collision with COAL");
 		if (other.transform.tag == "Player" && fuelLevel < 1.0f) {
 			CoalPickup();
+		} else {
+			PlayerPrefs.SetString("Talk", "I cannot carry more coal.");
 		}
 	}
 
