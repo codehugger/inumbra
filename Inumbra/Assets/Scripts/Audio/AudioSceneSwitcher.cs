@@ -14,6 +14,8 @@ public class AudioSceneSwitcher : MonoBehaviour {
 		firstText.color = new Color(0,0,0,0);
 		secondText.color = new Color(0,0,0,0);
 		StartCoroutine(playSoundThenLoad());
+
+		Cursor.visible = false;
 	}
 
 	IEnumerator playSoundThenLoad()

@@ -14,7 +14,6 @@ public class TrainPanelController : MonoBehaviour {
     public GameObject fadeScreen;
     public string nameOfNextScene;
     public bool useTrainScene = true;
-    public float fadeOutTime = 5.0f;
     public float timeOnTrain = 10.0f;
 
     public AudioClip[] trainMusic;
@@ -50,7 +49,7 @@ public class TrainPanelController : MonoBehaviour {
 
         // normalized = (x-min(x))/(max(x)-min(x))
         if (inTrainScene) {
-            currentLevel = Mathf.Clamp(1 - (timer) / (timeOnTrain + fadeOutTime), 0, 1);
+            currentLevel = Mathf.Clamp(1 - (timer) / (timeOnTrain), 0, 1);
             PlayerPrefs.SetFloat("FuelLevel", currentLevel);
         }
 	}
@@ -64,6 +63,7 @@ public class TrainPanelController : MonoBehaviour {
                 helpText.SetText("Press X to start train");
 
                 if (Input.GetButton("Submit") || Input.GetKey(KeyCode.X) || Input.GetButton("Square")) {
+                    PlayerPrefs.SetString("NextScene", nameOfNextScene);
                     StartCoroutine(EndScene());
                     GameObject.FindGameObjectWithTag("Train").GetComponent<TrainMovement>().doorsClosed = true;
                 }
@@ -83,7 +83,6 @@ public class TrainPanelController : MonoBehaviour {
         }
 
         // wait and then start screen fade out
-        yield return new WaitForSeconds(fadeOutTime);
         fadeScreen.GetComponent<ScreenBlackout>().startFade = true;
 
         // wait for the screen to go black
