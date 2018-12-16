@@ -9,6 +9,8 @@ public class FinalCutSceneController : MonoBehaviour {
 	public bool disableAfterTrigger = true;
 
 	public GameObject finalLight;
+	public GameObject ambient;
+	public GameObject lantern;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +26,8 @@ public class FinalCutSceneController : MonoBehaviour {
 		if (other.gameObject.tag == "Player") {
 			PlayerPrefs.SetString("Talk", cutSceneTextFile.text);
 			finalLight.SetActive(true);
+			ambient.SetActive(false);
+			lantern.SetActive(false);
 			if (disableAfterTrigger) {
 				gameObject.SetActive(false);
 			}
