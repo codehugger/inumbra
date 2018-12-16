@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114476268176771988}
   m_Layer: 0
   m_Name: GameState
-  m_TagString: Untagged
+  m_TagString: GameState
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,9 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3015dc251084e2991fc2b7c2e35901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingFuelLevel: 0
+  startingFuelLevel: 1
   startingPlayerHitPoints: 30
-  turnOnLantern: 1
+  turnOnLantern: 0
   enemiesCanMove: 1
   wipeOnStart: 0
   text: {fileID: 0}
@@ -160,6 +160,7 @@ MonoBehaviour:
   healingRate: 1
   playerHitPoints: 0
   playerHitPointsChanged: 0
+  groundMaterial: gravel
 --- !u!114 &114549396878877012
 MonoBehaviour:
   m_ObjectHideFlags: 1

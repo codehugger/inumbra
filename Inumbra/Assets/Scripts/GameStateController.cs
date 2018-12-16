@@ -39,6 +39,7 @@ public class GameStateController : MonoBehaviour {
 	// Fuel management
 	float fuelLevel = 0.0f;
 	bool fuelLevelChanged = false;
+	public string groundMaterial = "gravel";
 
 	// Use this for initialization
 	void Start () {

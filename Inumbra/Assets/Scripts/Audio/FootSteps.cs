@@ -4,27 +4,49 @@ using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 public class FootSteps : MonoBehaviour {
-
-	AudioSource audioSource;
-
 	public AudioClip gravelStepSound;
 	public AudioClip grassStepSound;
 	public AudioClip woodenFloorStepSound;
 	public AudioClip stoneStepSound;
+	public AudioClip dirtStepSound;
+
+	GameStateController gameStateController;
+	AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {
+		var gameState = GameObject.FindGameObjectWithTag("GameState");
+		gameStateController = gameState.GetComponent<GameStateController>();
 		audioSource = GetComponent<AudioSource>();
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-	}
-
 	public void FootStep() {
-		audioSource.pitch = Random.Range(0.8f, 1.1f);
-		audioSource.volume = Random.Range(0.8f, 1.0f);
-		audioSource.PlayOneShot(gravelStepSound);
+		if (gameStateController) {
+			audioSource.pitch = Random.Range(0.8f, 1.1f);
+			audioSource.volume = Random.Range(0.8f, 1.0f);
+			AudioClip stepSound;
+
+			Debug.Log(gameStateController.groundMaterial);
+
+			switch(gameStateController.groundMaterial) {
+				case "grass":
+				stepSound = grassStepSound;
+				break;
+				case "wood":
+				stepSound = woodenFloorStepSound;
+				break;
+				case "stone":
+				stepSound = stoneStepSound;
+				break;
+				case "dirt":
+				stepSound = dirtStepSound;
+				break;
+				default:
+				stepSound = gravelStepSound;
+				break;
+			}
+
+			audioSource.PlayOneShot(stepSound);
+		}
 	}
 }
